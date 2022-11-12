@@ -12,9 +12,9 @@ public class NormalDoc implements Documentable {
     private boolean isCreditor;
     private Date date;
     private Time time;
-    private int id;
-    private final int userID;
-    private String filePath = "normalDoc.txt";
+    public  static int id;
+    private int userID;
+    private final String filePath = "normalDoc.txt";
 
     public NormalDoc(String payee, String cost, String description,  boolean isCreditor, Date date, Time time, User user) {
         this.payee = payee;
@@ -25,8 +25,40 @@ public class NormalDoc implements Documentable {
         this.time = time;
         this.user = user;
         userID = user.getid();
-        id++;
+    }
 
+    public User getUser() {
+        return user;
+    }
+//public NormalDoc() {}
+
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setPayee(String payee) {
+        this.payee = payee;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCreditor(boolean creditor) {
+        isCreditor = creditor;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
     }
 
     public String getFilePath() {
@@ -35,12 +67,6 @@ public class NormalDoc implements Documentable {
 
     public int getUserID() {
         return userID;
-    }
-
-    @Override
-    public Date setDate() {
-        // VALIDATE THIIIIIIIIIIIIIIS
-        return null;
     }
 
     public int getId() {

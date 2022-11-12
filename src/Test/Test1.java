@@ -13,38 +13,26 @@ import UserRepository.UserRepository;
 
 public class Test1 {
     public static void main(String[] args) {
-         UserRepository userRepository = new UserRepository();
+        UserRepository userRepository = new UserRepository();
         User user = new User("amir",
                 "123",
                 new GroupType("Employee"),
                 "tehran",
                 "09034948371",
-                 "eramabadiamir@nizek.com");
-        NormalDoc normalDoc = new NormalDoc("ali",
+                "eramabadiamir@nizek.com", "helloApp");
+        /// NORMAL DOC
+        NormalDoc normalDoc = new NormalDoc("David",
                 "1000",
                 "pay rent",
                 true,
-                new Date(20,5,1401),
+                new Date(20, 5, 1401),
                 new Time(), user);
-        System.out.println(normalDoc.getId());
+        // CHECK DOC
         CheckDoc checkDoc = new CheckDoc("kosar",
-                "2000",
+                "1000",
                 "pay house rent",
-                new Date(11,2,1402),
-                new Time(), true
+                new Date(11, 2, 1402),
+                new Time(), true, user
         );
-        //All Write Methods
-        userRepository.writerToFile(user, user.getFilePath());
-        userRepository.writeToFile(normalDoc, normalDoc.getFilePath());
-        userRepository.writeToFile(checkDoc, checkDoc.getFilePath());
-
-        //All Read Methods
-        userRepository.readFile(user, "1", user.getFilePath());
-        userRepository.readFile(checkDoc,"1", checkDoc.getFilePath());
-        userRepository.readFile(normalDoc, "1", normalDoc.getFilePath());
-
-//        // Calculate!
-//        Accounting.calculateDebt(user, checkDoc, normalDoc);
-
     }
 }

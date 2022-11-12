@@ -1,5 +1,7 @@
 package Date;
 
+import java.util.Objects;
+
 public class Date {
     private int day;
     private int month;
@@ -21,41 +23,17 @@ public class Date {
         return year;
     }
 
-    // TEST THESE VALIDATIONS!
-    public void setDay(int day) {
-        if (day <= 0 || day > 31) {
-            return;
-        }
-        if (this.month <= 6) {
-            if (day <= 31) {
-                this.day = day;
-            }
-        } else if (this.month > 6) {
-            if (day <= 30) {
-                this.day = day;
-            }
-        }
-    }
-    public void setMonth(int month) {
-        if (month <= 0 || month > 12) {
-            return;
-        }
-        if (month <= 12) {
-            this.month = month;
-        }
-    }
-
-    public void setYear(int year) {
-        if (year <= 0 || year > 1500) {
-            return;
-        }
-        if (year > 1300) {
-            this.year = year;
-        }
-    }
-
     @Override
     public String toString() {
         return String.format("%d/%d/%d", year,month,day);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Date date = (Date) o;
+        return day == date.day && month == date.month && year == date.year;
+    }
+
 }

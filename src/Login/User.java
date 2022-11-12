@@ -4,27 +4,33 @@ import java.util.UUID;
 
 public class User {
     //ID variable to enable searching through Users!
-    private static String name;
-    private static String nationalID;
-    private static GroupType groupType; //needs to be overridden! we need to declare a type!
-    private static String address;
-    private static String phone;
-    private static String email;
-    private static int id;
+    private String name;
+    private String nationalID;
+    private GroupType groupType; //needs to be overridden! we need to declare a type!
+    private String address;
+    private String phone;
+    private String email;
+    private String password;
+    private  int id;
     private final String filePath = "userFile.txt";
 
-    public User(String name, String nationalID, GroupType groupType, String address, String phone, String email) {
+    public User(String name, String nationalID, GroupType groupType, String address, String phone, String email, String password) {
         this.name = name;
         this.nationalID = nationalID;
         this.groupType = groupType;
         this.address = address;
         this.phone = phone;
         this.email = email;
+        this.password = password;
         this.id++;
     }
 
     public void setEmail() {
 
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public int getid() {

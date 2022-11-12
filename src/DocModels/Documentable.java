@@ -8,5 +8,5 @@ public interface Documentable {
     String description = null;
     Date date = null;
 
-    Date setDate();
+//    Date setDate();
 }

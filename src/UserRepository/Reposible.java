@@ -5,11 +5,15 @@ import DocModels.NormalDoc;
 import Login.User;
 
 public interface Reposible {
-    void readFile(CheckDoc normalDoc, String id, String filePath);
-    void readFile(NormalDoc normalDoc, String id, String filePath);
-    void readFile(User normalDoc, String id, String filePath);
-   void writerToFile(User user, String filePath);
-   void writeToFile(NormalDoc normalDoc, String filePath);
-   void writeToFile(CheckDoc checkDoc, String filePath);
+
+    // Read Implementations!
+    void readFile(CheckDoc normalDoc, String id);
+    void readFile(NormalDoc normalDoc, String id);
+    void readFile(User normalDoc, String id);
+
+    // Write Implementations!
+   void writerToFile(User user);
+   void writeToFile(NormalDoc normalDoc);
+   void writeToFile(CheckDoc checkDoc);
 
 }
