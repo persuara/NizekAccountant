@@ -1,3 +1,1 @@
-David, 1000, pay rent, true, 1401/5/20, 12:47, 2 
-John, 5000, fridge lease down payment, true, 1401/8/21, 12:47, 3 
-baran, 19000, fridge lease down payment, true, 1401/8/21, 12:47, 4 
+David, 1000, pay rent, true, 1401/5/20, 15:23, 2 
