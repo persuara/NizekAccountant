@@ -2,7 +2,7 @@ package ModelManager;
 
 import DocModels.CheckDoc;
 import DocModels.NormalDoc;
-import Login.User;
+import Login.Costumer;
 import UserRepository.UserRepository;
 
 import java.util.ArrayList;
@@ -11,45 +11,22 @@ import java.util.List;
 public class Manager {
     public static List<NormalDoc> normalDocList = new ArrayList<>();
     public static List<CheckDoc> checkDocList = new ArrayList<>();
-    public static List<User> userList = new ArrayList<>();
+    public static List<Costumer> costumerList = new ArrayList<>();
     public static UserRepository userRepository = new UserRepository();
 
-    public static void addListNORMAL(NormalDoc normalDoc) {
-        normalDocList.add(new NormalDoc(normalDoc.getPayee(),
-                normalDoc.getCost(),
-                normalDoc.getDescription(),
-                normalDoc.isCreditor(),
-                normalDoc.getDate(),
-                normalDoc.getTime(),
-                normalDoc.getUser()
-        ));
+    public static void addNormalDocument(NormalDoc normalDoc) {
+        normalDocList.add(normalDoc);
         userRepository.writeToFile(normalDoc);
     }
 
-    public static void addListCHECK(CheckDoc checkDoc) {
-        checkDocList.add(new CheckDoc(
-                checkDoc.getPayee(),
-                checkDoc.getCost(),
-                checkDoc.getDescription(),
-                checkDoc.getDate(),
-                checkDoc.getTime(),
-                checkDoc.isCashed(),
-                checkDoc.getUser()
-        ));
+    public static void addCheckDocument(CheckDoc checkDoc) {
+        checkDocList.add(checkDoc);
         userRepository.writeToFile(checkDoc);
     }
 
-    public static void addListUSER(User user) {
-        userList.add(new User(
-                user.getName(),
-                user.getNationalID(),
-                user.getGroupType(),
-                user.getAddress(),
-                user.getPhone(),
-                user.getEmail(),
-                user.getPassword()
-        ));
-        userRepository.writerToFile(user);
+    public static void addCostumer(Costumer costumer) {
+        costumerList.add(costumer);
+        userRepository.writerToFile(costumer);
     }
 
     public static void removeFromList(NormalDoc normalDoc) {
@@ -60,8 +37,9 @@ public class Manager {
         checkDocList.remove(checkDoc);
     }
 
-    public static void removeFromList(User user) {
-        userList.remove(user);
+    public static void removeFromList(Costumer costumer) {
+        costumerList.remove(costumer);
     }
+
 
 }

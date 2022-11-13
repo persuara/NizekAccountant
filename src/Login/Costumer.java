@@ -2,9 +2,7 @@ package Login;
 
 import ModelManager.Manager;
 
-import java.util.UUID;
-
-public class User {
+public class Costumer {
     //ID variable to enable searching through Users!
     private String name;
     private String nationalID;
@@ -12,31 +10,23 @@ public class User {
     private String address;
     private String phone;
     private String email;
-    private String password;
-    private int id;
+    private int ID;
     private final String filePath = "userFile.csv";
 
-    public User(String name, String nationalID, GroupType groupType, String address, String phone, String email, String password) {
+    public Costumer(String name, String nationalID, GroupType groupType, String address, String phone, String email) {
         this.name = name;
         this.nationalID = nationalID;
         this.groupType = groupType;
         this.address = address;
         this.phone = phone;
         this.email = email;
-        this.password = password;
-        id = Manager.userList.size();
+        ID = Manager.costumerList.size();
     }
 
-    public void setEmail() {
 
-    }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public int getid() {
-        return this.id;
+    public int getID() {
+        return this.ID;
     }
 
     public String getFilePath() {
@@ -65,5 +55,19 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    @Override
+    public String toString() {
+        return "Costumer{" +
+                "name='" + name + '\'' +
+                ", nationalID='" + nationalID + '\'' +
+                ", groupType=" + groupType +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", ID=" + ID +
+                ", filePath='" + filePath + '\'' +
+                '}';
     }
 }

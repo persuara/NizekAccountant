@@ -43,3 +43,6 @@ Amir, 5000, pay sth, false, 1400/1/1, 19:57, 0
 Baran, 1000, pay sth, true, 1400/1/1, 20:03, 1 
 Baran, 8000, pay sth, false, 1400/1/1, 20:03, 1 
 Amir, 5000, pay sth, false, 1400/1/1, 20:03, 0 
+Baran, 1000, pay sth, true, 1400/1/1, 20:04, 1 
+Baran, 8000, pay sth, false, 1400/1/1, 20:04, 1 
+Amir, 5000, pay sth, false, 1400/1/1, 20:04, 0 

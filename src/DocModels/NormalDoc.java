@@ -1,42 +1,40 @@
 package DocModels;
 
 import Date.Date;
-import Date.Time;
-import Login.User;
-import ModelManager.Manager;
+import Date.TimeNizek;
+import Login.Costumer;
 
 public class NormalDoc implements Documentable {
-    private User user;
+    private Costumer costumer;
     private String payee;
     private String cost;
     private String description;
     private boolean isCreditor;
     private Date date;
-    private Time time;
-    public  static int id;
+    private TimeNizek timeNizek;
+
     private int userID;
     private final String filePath = "normalDoc.csv";
 
-    public NormalDoc(String payee, String cost, String description,  boolean isCreditor, Date date, Time time, User user) {
-        this.payee = payee;
+    public NormalDoc(String cost, String description, boolean isCreditor, Date date, TimeNizek timeNizek, Costumer costumer) {
         this.cost = cost;
         this.description = description;
         this.isCreditor = isCreditor;
         this.date = date;
-        this.time = time;
-        this.user = user;
-        userID = user.getid();
-        id = Manager.normalDocList.size();
+        this.timeNizek = timeNizek;
+        this.costumer = costumer;
+        userID = costumer.getID();
+
     }
 
-    public User getUser() {
-        return user;
+    public Costumer getUser() {
+        return costumer;
     }
 //public NormalDoc() {}
 
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Costumer costumer) {
+        this.costumer = costumer;
     }
 
     public void setPayee(String payee) {
@@ -59,8 +57,8 @@ public class NormalDoc implements Documentable {
         this.date = date;
     }
 
-    public void setTime(Time time) {
-        this.time = time;
+    public void setTime(TimeNizek timeNizek) {
+        this.timeNizek = timeNizek;
     }
 
     public String getFilePath() {
@@ -71,12 +69,9 @@ public class NormalDoc implements Documentable {
         return userID;
     }
 
-    public int getId() {
-        return id;
-    }
 
     public String getPayee() {
-        return payee;
+        return costumer.getName();
     }
 
     public String getCost() {
@@ -95,7 +90,7 @@ public class NormalDoc implements Documentable {
         return date;
     }
 
-    public Time getTime() {
-        return time;
+    public TimeNizek getTime() {
+        return timeNizek;
     }
 }

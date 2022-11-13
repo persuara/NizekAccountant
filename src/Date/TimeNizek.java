@@ -1,10 +1,10 @@
 package Date;
 
-public class Time {
+public class TimeNizek {
     int minute;
     int hour;
 
-    public Time() {
+    public TimeNizek() {
         this.minute = java.time.LocalTime.now().getMinute();
         this.hour = java.time.LocalTime.now().getHour();
     }

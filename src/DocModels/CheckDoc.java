@@ -1,32 +1,29 @@
 package DocModels;
 
 import Date.Date;
-import Date.Time;
-import Login.User;
-import ModelManager.Manager;
+import Date.TimeNizek;
+import Login.Costumer;
 
 public class CheckDoc implements  Documentable{
-    private User user;
-    private String payee;
+    private Costumer costumer;
     private String cost;
     private String description;
     private Date date;
-    private Time time;
+    private TimeNizek timeNizek;
     private boolean isCashed;
     private String filePath = "checkFile.csv";
 
     private final int userID;
 
 
-    public CheckDoc(String payee, String cost, String description, Date date, Time time, boolean isCashed, User user) {
-        this.payee = payee;
+    public CheckDoc( String cost, String description, Date date, TimeNizek timeNizek, boolean isCashed, Costumer costumer) {
         this.cost = cost;
         this.description = description;
         this.date = date;
-        this.time = time;
+        this.timeNizek = timeNizek;
         this.isCashed = isCashed;
-        this.user = user;
-        userID = user.getid();
+        this.costumer = costumer;
+        userID = costumer.getID();
     }
 
     public int getUserID() {
@@ -40,12 +37,12 @@ public class CheckDoc implements  Documentable{
         return filePath;
     }
 
-    public User getUser() {
-        return user;
+    public Costumer getUser() {
+        return costumer;
     }
 
     public String getPayee() {
-        return payee;
+        return costumer.getName();
     }
 
     public String getCost() {
@@ -60,8 +57,17 @@ public class CheckDoc implements  Documentable{
         return date;
     }
 
-    public Time getTime() {
-        return time;
+    public TimeNizek getTime() {
+        return timeNizek;
     }
 
+    @Override
+    public String toString() {
+        return "CheckDoc{" +
+                "costumer=" + costumer +
+                ", cost='" + cost + '\'' +
+                ", isCashed=" + isCashed +
+                ", userID=" + userID +
+                '}';
+    }
 }

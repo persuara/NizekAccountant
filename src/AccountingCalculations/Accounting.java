@@ -3,9 +3,9 @@ package AccountingCalculations;
 import ConverterHelper.Converter;
 import DocModels.CheckDoc;
 import DocModels.NormalDoc;
-import Login.User;
-import ModelManager.Manager;
 import UserRepository.UserRepository;
+
+import java.io.File;
 
 public class Accounting {
     static UserRepository userRepository = new UserRepository();
@@ -26,19 +26,20 @@ public class Accounting {
 //        return resultNormal;
 //    }
 
-    public static double calculateDebtWithOutChecks(NormalDoc normalDoc) {
-        return Converter.convertToDouble(
-                userRepository.readCostFromFile(
-                        normalDoc,
-                        String.valueOf(normalDoc.getUserID())
-                ));
+    public static double calculateDebtWithOutChecks(File file) {
+        double result = 0;
+        String[] cost = userRepository.readColumnWholeFile(1, file);
+        for (int i = 0; i < cost.length; i++) {
+            result += Converter.convertToDouble(cost[i]);
+        }
+        return result;
     }
 
     public static double calculateDebtWithOutNormalDoc(CheckDoc checkDoc) {
         return Converter.convertToDouble(
                 userRepository.readCostFromFile(
                         checkDoc,
-                        String.valueOf(checkDoc.getUserID())
+                        checkDoc.getUserID()
                 ));
     }
 }

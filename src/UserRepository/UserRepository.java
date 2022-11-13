@@ -4,12 +4,11 @@ import AdminModel.Admin;
 import Date.Date;
 import DocModels.CheckDoc;
 import DocModels.NormalDoc;
-import Login.User;
+import Login.Costumer;
 import ModelManager.Manager;
 
 import java.io.*;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
 
 public class UserRepository implements Reposible {
 
@@ -26,28 +25,28 @@ public class UserRepository implements Reposible {
 
     // Edit Read Files so that it reads it data from arrayLists.
 
+
     @Override
     public String readFile(CheckDoc checkDoc, int id) {
-        boolean isFound = false;
         String name;
         String cost;
         String description;
         String date;
         String time;
+        String userID;
         try {
             Scanner x = new Scanner(new File(checkDoc.getFilePath()));
             x.useDelimiter("[,\n]");
-            while (x.hasNext() && !isFound) {
+            while (x.hasNext()) {
                 name = x.next();
                 cost = x.next();
                 description = x.next();
                 date = x.next();
                 time = x.next();
-                for (int i = 0; i <= checkDoc.getId(); i++) {
-                    if (i == id) {
-                        isFound = true;
-                        tempCHECk = String.format("%s, %s, %s, %s,  %s", name, cost, description, date, time);
-                    }
+                userID = x.next();
+                if (id == checkDoc.getUserID()) {
+                    tempCHECk = String.format("%s, %s, %s, %s,  %s, %s", name, cost, description, date, time, userID);
+                    break;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -77,9 +76,9 @@ public class UserRepository implements Reposible {
                 date = x.next();
                 time = x.next();
                 userID = x.next();
-                if (id == normalDoc.getId()) {
+                if (id == normalDoc.getUserID()) {
                     isFound = true;
-                    tempNORMAL = String.format("%s, %s, %s, %b, %s, %s, %s", name, cost, description, isCreditor, date, time, userID);
+                    tempNORMAL = String.format("%s, %s, %s, %s, %s, %s, %s", name, cost, description, isCreditor, date, time, userID);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -89,7 +88,7 @@ public class UserRepository implements Reposible {
     }
 
     @Override
-    public String readFile(User user, String inputNationalID) {
+    public String readFile(Costumer costumer, String inputNationalID) {
         boolean isFound = false;
         String name;
         String nationalID;
@@ -98,7 +97,7 @@ public class UserRepository implements Reposible {
         String phone;
         String email;
         try {
-            Scanner x = new Scanner(new File(user.getFilePath()));
+            Scanner x = new Scanner(new File(costumer.getFilePath()));
             x.useDelimiter("[,\n]");
             while (x.hasNext() && !isFound) {
                 name = x.next();
@@ -108,7 +107,7 @@ public class UserRepository implements Reposible {
                 phone = x.next();
                 email = x.next();
 
-                if (inputNationalID.equals(user.getNationalID())) {
+                if (inputNationalID.equals(costumer.getNationalID())) {
                     isFound = true;
                     tempUser = String.format("%s , %s, %s, %s, %s, %s", name, nationalID, groupType, address, phone, email);
                 } else {
@@ -120,6 +119,7 @@ public class UserRepository implements Reposible {
         }
         return tempUser;
     }
+
     @Override
     public String readAdmin(Admin admin) {
         String name;
@@ -143,20 +143,19 @@ public class UserRepository implements Reposible {
     // *************** WRITE METHODS
 
     @Override
-    public void writerToFile(User user) {
+    public void writerToFile(Costumer costumer) {
         try {
-            FileWriter fileWriter = new FileWriter(user.getFilePath(), true);
+            FileWriter fileWriter = new FileWriter(costumer.getFilePath(), true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             PrintWriter printWriter = new PrintWriter(bufferedWriter);
-            printWriter.printf("%s , %s, %s, %s, %s, %s, %s, %d\n",
-                    user.getName(),
-                    user.getNationalID(),
-                    user.getGroupType(),
-                    user.getAddress(),
-                    user.getPhone(),
-                    user.getEmail(),
-                    user.getPassword(),
-                    user.getid());
+            printWriter.printf("%s , %s, %s, %s, %s, %s, %d\n",
+                    costumer.getName(),
+                    costumer.getNationalID(),
+                    costumer.getGroupType(),
+                    costumer.getAddress(),
+                    costumer.getPhone(),
+                    costumer.getEmail(),
+                    costumer.getID());
             printWriter.flush();
             printWriter.close();
         } catch (IOException e) {
@@ -171,13 +170,13 @@ public class UserRepository implements Reposible {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             PrintWriter printWriter = new PrintWriter(bufferedWriter);
             printWriter.printf("%s, %s, %s, %b, %s, %s, %d \n",
-                    normalDoc.getPayee(),
+                    normalDoc.getUser().getName(),
                     normalDoc.getCost(),
                     normalDoc.getDescription(),
                     normalDoc.isCreditor(),
                     normalDoc.getDate(),
                     normalDoc.getTime(),
-                    normalDoc.getId()
+                    normalDoc.getUserID()
             );
             printWriter.flush();
             printWriter.close();
@@ -194,12 +193,12 @@ public class UserRepository implements Reposible {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             PrintWriter printWriter = new PrintWriter(bufferedWriter);
             printWriter.printf("%s, %s, %s, %s, %s, %d\n",
-                    checkDoc.getPayee(),
+                    checkDoc.getUser().getName(),
                     checkDoc.getCost(),
                     checkDoc.getDescription(),
                     checkDoc.getDate(),
                     checkDoc.getTime(),
-                    checkDoc.getId());
+                    checkDoc.getUserID());
             printWriter.flush();
             printWriter.close();
         } catch (IOException e) {
@@ -226,31 +225,32 @@ public class UserRepository implements Reposible {
 
     }
 
-    // &&&&&&&&&&&&& READ ALL METHODS &&&&&&&&&&&&&&&
-    @Override
-    public void readAllNORMAL(User user) {
-        for (NormalDoc normalDoc : Manager.normalDocList) {
-            System.out.println(readFile(normalDoc, normalDoc.getId()));
-        }
-    }
+    // &&&&&&&&&&&&& READ ALL Method &&&&&&&&&&&&&&&
 
     @Override
-    public void readAllCHECK(User user) {
-        for (CheckDoc checkDoc : Manager.checkDocList) {
-            System.out.println(readFile(checkDoc, checkDoc.getId()));
+    public List<String> readWholeFile(File file) {
+        List<String> arraylist = new ArrayList<>();
+        try {
+            InputStream ips = new FileInputStream(file.getPath());
+            InputStreamReader ipsr = new InputStreamReader(ips);
+            BufferedReader br = new BufferedReader(ipsr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] emp = line.split(",");
+                String a = Arrays.toString(emp);
+                arraylist.add(a);
+            }
+            br.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    }
 
-    @Override
-    public void readAllUSER() {
-        for (User user : Manager.userList) {
-            System.out.println(readFile(user, user.getNationalID()));
-        }
+        return arraylist;
     }
 
     /////////   READ COST FROM BOTH NORMAL DOC AND CHECK DOC!!!!!
 
-    public String readCostFromFile(NormalDoc normalDoc, String id) {
+    public String readCostFromFile(NormalDoc normalDoc, int id) {
         boolean isFound = false;
         String name;
         String cost;
@@ -258,7 +258,6 @@ public class UserRepository implements Reposible {
         String isCreditor;
         String date;
         String time;
-
         try {
             Scanner x = new Scanner(new File(normalDoc.getFilePath()));
             x.useDelimiter("[,\n]");
@@ -269,9 +268,7 @@ public class UserRepository implements Reposible {
                 isCreditor = x.next();
                 date = x.next();
                 time = x.next();
-//                temp = name + cost + description + isCreditor + date + time;
-
-                if (id.equals(String.valueOf(normalDoc.getUserID()))) {
+                if (id == normalDoc.getUserID()) {
                     isFound = true;
                     costNormal = cost;
                 }
@@ -284,7 +281,7 @@ public class UserRepository implements Reposible {
         return costNormal;
     }
 
-    public String readCostFromFile(CheckDoc checkDoc, String id) {
+    public String readCostFromFile(CheckDoc checkDoc, int id) {
         boolean isFound = false;
         String name;
         String cost;
@@ -300,7 +297,7 @@ public class UserRepository implements Reposible {
                 description = x.next();
                 date = x.next();
                 time = x.next();
-                if (id.equals(String.valueOf(checkDoc.getUserID()))) {
+                if (id == checkDoc.getUserID()) {
                     isFound = true;
                     costCheck = cost;
                 }
@@ -346,74 +343,6 @@ public class UserRepository implements Reposible {
     }
 
 
-    public String[] readBasedOnDateFromFile(CheckDoc checkDoc, Date inputDate, String filePath) {
-        boolean isFound = false;
-        String[] array = new String[5];
-        String name;
-        String cost;
-        String description;
-        String date;
-        String time;
-        try {
-            Scanner x = new Scanner(new File(filePath));
-            x.useDelimiter("[,\n]");
-            while (x.hasNext() && !isFound) {
-                name = x.next();
-                cost = x.next();
-                description = x.next();
-                date = x.next();
-                time = x.next();
-                if (inputDate.equals(checkDoc.getDate())) {
-                    isFound = true;
-                    array[0] = name;
-                    array[1] = cost;
-                    array[2] = description;
-                    array[3] = date;
-                    array[4] = time;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchElementException e) {
-            e.toString();
-        }
-        return array;
-    }
-
-    public String[] readBasedOnDateFromFile(NormalDoc normalDoc, Date inputDate, String filePath) {
-        boolean isFound = false;
-        String[] array = new String[5];
-        String name;
-        String cost;
-        String description;
-        String date;
-        String time;
-        try {
-            Scanner x = new Scanner(new File(filePath));
-            x.useDelimiter("[,\n]");
-            while (x.hasNext() && !isFound) {
-                name = x.next();
-                cost = x.next();
-                description = x.next();
-                date = x.next();
-                time = x.next();
-                if (inputDate.equals(normalDoc.getDate())) {
-                    isFound = true;
-                    array[0] = name;
-                    array[1] = cost;
-                    array[2] = description;
-                    array[3] = date;
-                    array[4] = time;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchElementException e) {
-            e.toString();
-        }
-        return array;
-    }
-
     public void removeIdFromDataBase(NormalDoc normalDoc, int deleteLine) { //changed delete line to delete id!
         String tempFileAddress = "temp.csv";
         File oldFile = new File(normalDoc.getFilePath());
@@ -447,5 +376,22 @@ public class UserRepository implements Reposible {
             e.printStackTrace();
             System.out.println("Couldn't write a new file!" + normalDoc.getFilePath());
         }
+    }
+
+    public String[] readColumnWholeFile(int column, File file) {
+        String[] data;
+        String currentLine;
+        List<String> listColumn = new ArrayList<>();
+        try {
+            FileReader fileReader = new FileReader(file.getPath());
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            while ((currentLine = bufferedReader.readLine()) != null) {
+                data = currentLine.split(", ");
+                listColumn.add(data[column]);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return listColumn.toArray(new String[0]);
     }
 }
