@@ -17,11 +17,13 @@ public class Manager {
     public static void addNormalDocument(NormalDoc normalDoc) {
         normalDocList.add(normalDoc);
         userRepository.writeToFile(normalDoc);
+        userRepository.writeIFCreditorToFile(normalDoc);
     }
 
     public static void addCheckDocument(CheckDoc checkDoc) {
         checkDocList.add(checkDoc);
         userRepository.writeToFile(checkDoc);
+        userRepository.writeIFCashedToFile(checkDoc);
     }
 
     public static void addCostumer(Costumer costumer) {

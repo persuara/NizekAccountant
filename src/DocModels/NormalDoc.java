@@ -14,7 +14,9 @@ public class NormalDoc implements Documentable {
     private TimeNizek timeNizek;
 
     private int userID;
-    private final String filePath = "normalDoc.csv";
+    private final String filePath = "DataBase/NormalDocuments/normalDoc.csv";
+    private final String isCreditorFilePath = "DataBase/NormalDocuments/creditor.csv";
+    private final String notCreditorFilePath = "DataBase/NormalDocuments/notCreditor.csv";
 
     public NormalDoc(String cost, String description, boolean isCreditor, Date date, TimeNizek timeNizek, Costumer costumer) {
         this.cost = cost;
@@ -61,14 +63,10 @@ public class NormalDoc implements Documentable {
         this.timeNizek = timeNizek;
     }
 
-    public String getFilePath() {
-        return filePath;
-    }
 
     public int getUserID() {
         return userID;
     }
-
 
     public String getPayee() {
         return costumer.getName();
@@ -93,4 +91,16 @@ public class NormalDoc implements Documentable {
     public TimeNizek getTime() {
         return timeNizek;
     }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public String getNotCreditorFilePath() {
+        return notCreditorFilePath;
+    }
+    public String getIsCreditorFilePath() {
+        return isCreditorFilePath;
+    }
+
 }

@@ -11,7 +11,11 @@ public class CheckDoc implements  Documentable{
     private Date date;
     private TimeNizek timeNizek;
     private boolean isCashed;
-    private String filePath = "checkFile.csv";
+    private String filePath = "DataBase/CheckDocuments/checkFile.csv";
+    private String cashedFilePath = "DataBase/CheckDocuments/cashedCheck.csv";
+    private String notCashedFilePath = "DataBase/CheckDocuments/notCashedCheck.csv";
+
+
 
     private final int userID;
 
@@ -33,9 +37,6 @@ public class CheckDoc implements  Documentable{
         return isCashed;
     }
 
-    public String getFilePath() {
-        return filePath;
-    }
 
     public Costumer getUser() {
         return costumer;
@@ -59,6 +60,18 @@ public class CheckDoc implements  Documentable{
 
     public TimeNizek getTime() {
         return timeNizek;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public String getCashedFilePath() {
+        return cashedFilePath;
+    }
+
+    public String getNotCashedFilePath() {
+        return notCashedFilePath;
     }
 
     @Override

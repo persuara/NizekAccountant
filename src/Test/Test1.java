@@ -41,53 +41,89 @@ public class Test1 {
                 "9031134513126",
                 "email@gmail.com"
                 ));
+//
+//        Manager.addNormalDocument(new NormalDoc(
+//                "1000",
+//                "pay sth",
+//                true,
+//                new Date(1,1,1400),
+//                new TimeNizek(),
+//                Manager.costumerList.get(1)
+//        ));
+//        Manager.addNormalDocument(new NormalDoc(
+//                "19000",
+//                "pay debt",
+//                true,
+//                new Date(19,12,1420),
+//                new TimeNizek(),
+//                Manager.costumerList.get(1)
+//        ));
+//        Manager.addNormalDocument(new NormalDoc(
+//                "8000",
+//                "pay list",
+//                false,
+//                new Date(12,1,1400),
+//                new TimeNizek(),
+//                Manager.costumerList.get(1)
+//        ));
+//        Manager.addNormalDocument(new NormalDoc(
+//                "5000",
+//                "pay sth",
+//                false,
+//                new Date(5,1,1401),
+//                new TimeNizek(),
+//                Manager.costumerList.get(0)
+//                ));
 
-        Manager.addNormalDocument(new NormalDoc(
-                "1000",
-                "pay sth",
-                true,
-                new Date(1,1,1400),
-                new TimeNizek(),
-                Manager.costumerList.get(1)
-        )); Manager.addNormalDocument(new NormalDoc(
-                "8000",
-                "pay sth",
-                false,
-                new Date(1,1,1400),
-                new TimeNizek(),
-                Manager.costumerList.get(1)
-        ));
-        Manager.addNormalDocument(new NormalDoc(
-                "5000",
-                "pay sth",
-                false,
-                new Date(1,1,1400),
-                new TimeNizek(),
-                Manager.costumerList.get(0)
-                ));
+
 
         Manager.addCheckDocument(new CheckDoc(
-                "2000",
+                "500",
                 "pay sth also",
+                new Date(1,2,1401),
+                new TimeNizek(),
+                true,
+                Manager.costumerList.get(1)
+        ));
+        Manager.addCheckDocument(new CheckDoc(
+                "11000",
+                "Diamond for Elly",
                 new Date(1,2,1401),
                 new TimeNizek(),
                 true,
                 Manager.costumerList.get(0)
         ));
         Manager.addCheckDocument(new CheckDoc(
-                "4000",
-                "pay sth also",
+                "12000",
+                "Rolex",
                 new Date(1,2,1401),
                 new TimeNizek(),
-                true,
+                false,
+                Manager.costumerList.get(0)
+        ));
+        Manager.addCheckDocument(new CheckDoc(
+                "41000",
+                "Hospital Bill",
+                new Date(1,2,1401),
+                new TimeNizek(),
+                false,
+                Manager.costumerList.get(0)
+        ));
+        Manager.addCheckDocument(new CheckDoc(
+                "19000",
+                "RangeRover",
+                new Date(1,2,1401),
+                new TimeNizek(),
+                false,
                 Manager.costumerList.get(0)
         ));
 
-//        System.out.println(userRepository.readWholeFile(new File(Manager.checkDocList.get(0).getFilePath())));
-//        System.out.println(userRepository.readWholeFile(new File(Manager.normalDocList.get(0).getFilePath())));
-//        System.out.println(userRepository.readWholeFile(new File(Manager.costumerList.get(0).getFilePath())));
 
-        System.out.println(Accounting.calculateDebtWithOutChecks(new File(Manager.normalDocList.get(0).getFilePath())));
+        System.out.println("Cashed: " + Accounting.calculateMoney(new File(Manager.checkDocList.get(0).getCashedFilePath())));
+        System.out.println("Not Cashed" + Accounting.calculateMoney(new File(Manager.checkDocList.get(0).getNotCashedFilePath())));
+        System.out.println("all in one: " + Accounting.reportAllTransactionCHECK(new File(Manager.checkDocList.get(0).getFilePath())));
+
+
 
     }
 }

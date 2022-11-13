@@ -186,6 +186,50 @@ public class UserRepository implements Reposible {
         }
     }
 
+    public void writeIFCreditorToFile(NormalDoc normalDoc) {
+        try {
+            if (normalDoc.isCreditor()) {
+                FileWriter fileWriter = new FileWriter(normalDoc.getIsCreditorFilePath(), true);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                PrintWriter printWriter = new PrintWriter(bufferedWriter);
+                printWriter.printf("%s, %s, %s, %b, %s, %s, %d \n",
+                        normalDoc.getUser().getName(),
+                        normalDoc.getCost(),
+                        normalDoc.getDescription(),
+                        normalDoc.isCreditor(),
+                        normalDoc.getDate(),
+                        normalDoc.getTime(),
+                        normalDoc.getUserID()
+                );
+                printWriter.flush();
+                printWriter.close();
+                System.out.println("Successfully added to data base" + normalDoc.getCost());
+            } else {
+                try {
+                    FileWriter fileWriter = new FileWriter(normalDoc.getNotCreditorFilePath(), true);
+                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                    PrintWriter printWriter = new PrintWriter(bufferedWriter);
+                    printWriter.printf("%s, %s, %s, %b, %s, %s, %d \n",
+                            normalDoc.getUser().getName(),
+                            normalDoc.getCost(),
+                            normalDoc.getDescription(),
+                            normalDoc.isCreditor(),
+                            normalDoc.getDate(),
+                            normalDoc.getTime(),
+                            normalDoc.getUserID()
+                    );
+                    printWriter.flush();
+                    printWriter.close();
+                    System.out.println("Successfully added to data base" + normalDoc.getCost());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void writeToFile(CheckDoc checkDoc) {
         try {
@@ -201,6 +245,45 @@ public class UserRepository implements Reposible {
                     checkDoc.getUserID());
             printWriter.flush();
             printWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeIFCashedToFile(CheckDoc checkDoc) {
+        try {
+            if (checkDoc.isCashed()) {
+
+                FileWriter fileWriter = new FileWriter(checkDoc.getCashedFilePath(), true);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                PrintWriter printWriter = new PrintWriter(bufferedWriter);
+                printWriter.printf("%s, %s, %s, %s, %s, %d\n",
+                        checkDoc.getUser().getName(),
+                        checkDoc.getCost(),
+                        checkDoc.getDescription(),
+                        checkDoc.getDate(),
+                        checkDoc.getTime(),
+                        checkDoc.getUserID());
+                printWriter.flush();
+                printWriter.close();
+            } else {
+                try {
+                    FileWriter fileWriter = new FileWriter(checkDoc.getNotCashedFilePath(), true);
+                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                    PrintWriter printWriter = new PrintWriter(bufferedWriter);
+                    printWriter.printf("%s, %s, %s, %s, %s, %d\n",
+                            checkDoc.getUser().getName(),
+                            checkDoc.getCost(),
+                            checkDoc.getDescription(),
+                            checkDoc.getDate(),
+                            checkDoc.getTime(),
+                            checkDoc.getUserID());
+                    printWriter.flush();
+                    printWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

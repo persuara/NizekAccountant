@@ -1,8 +1,7 @@
 package AccountingCalculations;
 
 import ConverterHelper.Converter;
-import DocModels.CheckDoc;
-import DocModels.NormalDoc;
+import ModelManager.Manager;
 import UserRepository.UserRepository;
 
 import java.io.File;
@@ -26,7 +25,7 @@ public class Accounting {
 //        return resultNormal;
 //    }
 
-    public static double calculateDebtWithOutChecks(File file) {
+    public static double calculateMoney(File file) {
         double result = 0;
         String[] cost = userRepository.readColumnWholeFile(1, file);
         for (int i = 0; i < cost.length; i++) {
@@ -34,12 +33,14 @@ public class Accounting {
         }
         return result;
     }
-
-    public static double calculateDebtWithOutNormalDoc(CheckDoc checkDoc) {
-        return Converter.convertToDouble(
-                userRepository.readCostFromFile(
-                        checkDoc,
-                        checkDoc.getUserID()
-                ));
+    public static double reportAllTransactionNORMAL(File file) {
+        double creditorSum = calculateMoney(new File(Manager.normalDocList.get(0).getIsCreditorFilePath()));
+        double notCreditorSum = calculateMoney(new File(Manager.normalDocList.get(0).getNotCreditorFilePath()));
+        return creditorSum + notCreditorSum;
+    }
+    public static double reportAllTransactionCHECK(File file) {
+        double cashedSum = calculateMoney(new File(Manager.checkDocList.get(0).getCashedFilePath()));
+        double notCashedSum = calculateMoney(new File(Manager.checkDocList.get(0).getNotCashedFilePath()));
+        return cashedSum + notCashedSum;
     }
 }
