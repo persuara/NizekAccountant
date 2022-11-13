@@ -12,6 +12,7 @@ public class Manager {
     public static List<NormalDoc> normalDocList = new ArrayList<>();
     public static List<CheckDoc> checkDocList = new ArrayList<>();
     public static List<User> userList = new ArrayList<>();
+    public static UserRepository userRepository = new UserRepository();
 
     public static void addListNORMAL(NormalDoc normalDoc) {
         normalDocList.add(new NormalDoc(normalDoc.getPayee(),
@@ -22,6 +23,7 @@ public class Manager {
                 normalDoc.getTime(),
                 normalDoc.getUser()
         ));
+        userRepository.writeToFile(normalDoc);
     }
 
     public static void addListCHECK(CheckDoc checkDoc) {
@@ -34,6 +36,7 @@ public class Manager {
                 checkDoc.isCashed(),
                 checkDoc.getUser()
         ));
+        userRepository.writeToFile(checkDoc);
     }
 
     public static void addListUSER(User user) {
@@ -46,6 +49,7 @@ public class Manager {
                 user.getEmail(),
                 user.getPassword()
         ));
+        userRepository.writerToFile(user);
     }
 
     public static void removeFromList(NormalDoc normalDoc) {

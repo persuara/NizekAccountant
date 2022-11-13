@@ -3,6 +3,7 @@ package DocModels;
 import Date.Date;
 import Date.Time;
 import Login.User;
+import ModelManager.Manager;
 
 public class NormalDoc implements Documentable {
     private User user;
@@ -14,7 +15,7 @@ public class NormalDoc implements Documentable {
     private Time time;
     public  static int id;
     private int userID;
-    private final String filePath = "normalDoc.txt";
+    private final String filePath = "normalDoc.csv";
 
     public NormalDoc(String payee, String cost, String description,  boolean isCreditor, Date date, Time time, User user) {
         this.payee = payee;
@@ -25,6 +26,7 @@ public class NormalDoc implements Documentable {
         this.time = time;
         this.user = user;
         userID = user.getid();
+        id = Manager.normalDocList.size();
     }
 
     public User getUser() {

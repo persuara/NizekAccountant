@@ -1,5 +1,7 @@
 package Login;
 
+import ModelManager.Manager;
+
 import java.util.UUID;
 
 public class User {
@@ -11,8 +13,8 @@ public class User {
     private String phone;
     private String email;
     private String password;
-    private  int id;
-    private final String filePath = "userFile.txt";
+    private int id;
+    private final String filePath = "userFile.csv";
 
     public User(String name, String nationalID, GroupType groupType, String address, String phone, String email, String password) {
         this.name = name;
@@ -22,7 +24,7 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.password = password;
-        this.id++;
+        id = Manager.userList.size();
     }
 
     public void setEmail() {

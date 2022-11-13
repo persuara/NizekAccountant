@@ -3,6 +3,7 @@ package DocModels;
 import Date.Date;
 import Date.Time;
 import Login.User;
+import ModelManager.Manager;
 
 public class CheckDoc implements  Documentable{
     private User user;
@@ -11,9 +12,8 @@ public class CheckDoc implements  Documentable{
     private String description;
     private Date date;
     private Time time;
-    private int id = 0;
     private boolean isCashed;
-    private String filePath = "checkFile.txt";
+    private String filePath = "checkFile.csv";
 
     private final int userID;
 
@@ -27,7 +27,6 @@ public class CheckDoc implements  Documentable{
         this.isCashed = isCashed;
         this.user = user;
         userID = user.getid();
-        this.id ++;
     }
 
     public int getUserID() {
@@ -65,7 +64,4 @@ public class CheckDoc implements  Documentable{
         return time;
     }
 
-    public int getId() {
-        return id;
-    }
 }
