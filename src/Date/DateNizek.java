@@ -1,13 +1,11 @@
 package Date;
 
-import java.util.Objects;
-
-public class Date {
+public class DateNizek {
     private int day;
     private int month;
     private int year;
 
-    public Date(int day, int month, int year) {
+    public DateNizek(int day, int month, int year) {
         this.day = day;
         this.month = month;
         this.year = year;
@@ -39,8 +37,8 @@ public class Date {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Date date = (Date) o;
-        return day == date.day && month == date.month && year == date.year;
+        DateNizek dateNizek = (DateNizek) o;
+        return day == dateNizek.day && month == dateNizek.month && year == dateNizek.year;
     }
 
 }

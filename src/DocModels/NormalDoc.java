@@ -1,6 +1,6 @@
 package DocModels;
 
-import Date.Date;
+import Date.DateNizek;
 import Date.TimeNizek;
 import Login.Costumer;
 
@@ -10,7 +10,7 @@ public class NormalDoc implements Documentable {
     private String cost;
     private String description;
     private boolean isCreditor;
-    private Date date;
+    private DateNizek dateNizek;
     private TimeNizek timeNizek;
 
     private int userID;
@@ -18,11 +18,11 @@ public class NormalDoc implements Documentable {
     private final String isCreditorFilePath = "creditor.csv";
     private final String notCreditorFilePath = "notCreditor.csv";
 
-    public NormalDoc(String cost, String description, boolean isCreditor, Date date, TimeNizek timeNizek, Costumer costumer) {
+    public NormalDoc(String cost, String description, boolean isCreditor, DateNizek dateNizek, TimeNizek timeNizek, Costumer costumer) {
         this.cost = cost;
         this.description = description;
         this.isCreditor = isCreditor;
-        this.date = date;
+        this.dateNizek = dateNizek;
         this.timeNizek = timeNizek;
         this.costumer = costumer;
         userID = costumer.getID();
@@ -55,8 +55,8 @@ public class NormalDoc implements Documentable {
         isCreditor = creditor;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(DateNizek dateNizek) {
+        this.dateNizek = dateNizek;
     }
 
     public void setTime(TimeNizek timeNizek) {
@@ -84,8 +84,8 @@ public class NormalDoc implements Documentable {
         return isCreditor;
     }
 
-    public Date getDate() {
-        return date;
+    public DateNizek getDate() {
+        return dateNizek;
     }
 
     public TimeNizek getTime() {

@@ -1,7 +1,7 @@
 package UserRepository;
 
 import AdminModel.Admin;
-import Date.Date;
+import ConverterHelper.ConvertTime;
 import DocModels.CheckDoc;
 import DocModels.NormalDoc;
 import Login.Costumer;
@@ -45,7 +45,7 @@ public class UserRepository implements Reposible {
                 time = x.next();
                 userID = x.next();
                 if (id == checkDoc.getUserID()) {
-                    tempCHECk = String.format("%s, %s, %s, %s,  %s, %s", name, cost, description, date, time, userID);
+                    tempCHECk = String.format("%s, %s, %s, %s,  %s, %s", name, cost, description, ConvertTime.convertToPersian(date), time, userID);
                     break;
                 }
             }
@@ -76,7 +76,7 @@ public class UserRepository implements Reposible {
                 time = x.next();
                 userID = x.next();
                 if (id == normalDoc.getUserID()) {
-                    tempNORMAL = String.format("%s, %s, %s, %s, %s, %s, %s", name, cost, description, isCreditor, date, time, userID);
+                    tempNORMAL = String.format("%s, %s, %s, %s, %s, %s, %s", name, cost, description, isCreditor, ConvertTime.convertToPersian(date), time, userID);
                     break;
                 }
             }
@@ -173,7 +173,7 @@ public class UserRepository implements Reposible {
                     normalDoc.getCost(),
                     normalDoc.getDescription(),
                     normalDoc.isCreditor(),
-                    normalDoc.getDate(),
+                    ConvertTime.convertToGregorian(normalDoc.getDate()),
                     normalDoc.getTime(),
                     normalDoc.getUserID()
             );
@@ -196,7 +196,7 @@ public class UserRepository implements Reposible {
                         normalDoc.getCost(),
                         normalDoc.getDescription(),
                         normalDoc.isCreditor(),
-                        normalDoc.getDate(),
+                        ConvertTime.convertToGregorian(normalDoc.getDate()),
                         normalDoc.getTime(),
                         normalDoc.getUserID()
                 );
@@ -213,7 +213,7 @@ public class UserRepository implements Reposible {
                             normalDoc.getCost(),
                             normalDoc.getDescription(),
                             normalDoc.isCreditor(),
-                            normalDoc.getDate(),
+                            ConvertTime.convertToGregorian(normalDoc.getDate()),
                             normalDoc.getTime(),
                             normalDoc.getUserID()
                     );
@@ -239,7 +239,7 @@ public class UserRepository implements Reposible {
                     checkDoc.getUser().getName(),
                     checkDoc.getCost(),
                     checkDoc.getDescription(),
-                    checkDoc.getDate(),
+                    ConvertTime.convertToGregorian(checkDoc.getDate()),
                     checkDoc.getTime(),
                     checkDoc.getUserID());
             printWriter.flush();
@@ -259,7 +259,7 @@ public class UserRepository implements Reposible {
                         checkDoc.getUser().getName(),
                         checkDoc.getCost(),
                         checkDoc.getDescription(),
-                        checkDoc.getDate(),
+                        ConvertTime.convertToGregorian(checkDoc.getDate()),
                         checkDoc.getTime(),
                         checkDoc.getUserID());
                 printWriter.flush();
@@ -272,7 +272,7 @@ public class UserRepository implements Reposible {
                         checkDoc.getUser().getName(),
                         checkDoc.getCost(),
                         checkDoc.getDescription(),
-                        checkDoc.getDate(),
+                        ConvertTime.convertToGregorian(checkDoc.getDate()),
                         checkDoc.getTime(),
                         checkDoc.getUserID());
                 printWriter.flush();
@@ -314,6 +314,7 @@ public class UserRepository implements Reposible {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] emp = line.split(",");
+//                emp[1] = ConvertTime.convertToPersian(emp[1]);
                 String a = Arrays.toString(emp);
                 arraylist.add(a);
             }

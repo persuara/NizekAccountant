@@ -19,6 +19,8 @@ public class Accounting {
         }
         return result;
     }
+
+
     public static double reportAllTransactionNORMAL(List<NormalDoc> normalDocList) {
         double creditorSum = calculateMoney(new File(normalDocList.get(0).getIsCreditorFilePath()));
         double notCreditorSum = calculateMoney(new File(normalDocList.get(0).getNotCreditorFilePath()));

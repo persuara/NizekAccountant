@@ -2,7 +2,9 @@ package Test;
 
 
 import AccountingCalculations.Accounting;
-import Date.Date;
+import ConverterHelper.ConvertTime;
+import ConverterHelper.Converter;
+import Date.DateNizek;
 import Date.TimeNizek;
 import DocModels.CheckDoc;
 import DocModels.NormalDoc;
@@ -12,6 +14,7 @@ import ModelManager.Manager;
 import UserRepository.UserRepository;
 
 import java.io.File;
+import java.util.Arrays;
 
 public class Test1 {
     static NormalDoc normalDoc;
@@ -46,7 +49,7 @@ public class Test1 {
                 "1000",
                 "pay sth",
                 true,
-                new Date(1,1,1400),
+                new DateNizek(31,6,1320),
                 new TimeNizek(),
                 Manager.costumerList.get(1)
         ));
@@ -54,7 +57,7 @@ public class Test1 {
                 "19000",
                 "pay debt",
                 true,
-                new Date(19,12,1420),
+                new DateNizek(19,12,1390),
                 new TimeNizek(),
                 Manager.costumerList.get(1)
         ));
@@ -62,7 +65,7 @@ public class Test1 {
                 "8000",
                 "pay list",
                 false,
-                new Date(12,1,1400),
+                new DateNizek(5,9,1402),
                 new TimeNizek(),
                 Manager.costumerList.get(1)
         ));
@@ -70,7 +73,7 @@ public class Test1 {
                 "5000",
                 "pay sth",
                 false,
-                new Date(5,1,1401),
+                new DateNizek(1,3,1430),
                 new TimeNizek(),
                 Manager.costumerList.get(0)
                 ));
@@ -80,7 +83,7 @@ public class Test1 {
         Manager.addCheckDocument(new CheckDoc(
                 "500",
                 "pay sth also",
-                new Date(1,2,1401),
+                new DateNizek(12,11,1398),
                 new TimeNizek(),
                 true,
                 Manager.costumerList.get(1)
@@ -88,7 +91,7 @@ public class Test1 {
         Manager.addCheckDocument(new CheckDoc(
                 "11000",
                 "Diamond for Elly",
-                new Date(1,2,1401),
+                new DateNizek(22,2,1301),
                 new TimeNizek(),
                 true,
                 Manager.costumerList.get(0)
@@ -96,7 +99,7 @@ public class Test1 {
         Manager.addCheckDocument(new CheckDoc(
                 "12000",
                 "Rolex",
-                new Date(1,2,1401),
+                new DateNizek(1,2,1408),
                 new TimeNizek(),
                 false,
                 Manager.costumerList.get(0)
@@ -104,7 +107,7 @@ public class Test1 {
         Manager.addCheckDocument(new CheckDoc(
                 "41000",
                 "Hospital Bill",
-                new Date(1,2,1401),
+                new DateNizek(1,2,1419),
                 new TimeNizek(),
                 false,
                 Manager.costumerList.get(0)
@@ -112,16 +115,19 @@ public class Test1 {
         Manager.addCheckDocument(new CheckDoc(
                 "19000",
                 "RangeRover",
-                new Date(1,2,1401),
+                new DateNizek(1,2,1410),
                 new TimeNizek(),
                 false,
                 Manager.costumerList.get(0)
         ));
 
 
-//        System.out.println("Cashed: " + Accounting.calculateMoney(new File(Manager.checkDocList.get(0).getCashedFilePath())));
-//        System.out.println("Not Cashed" + Accounting.calculateMoney(new File(Manager.checkDocList.get(0).getNotCashedFilePath())));
-//        System.out.println("all in one: " + Accounting.reportAllTransactionCHECK(new File(Manager.checkDocList.get(0).getFilePath())));
+//        System.out.println(userRepository.readWholeFile(new File(Manager.normalDocList.get(0).getIsCreditorFilePath())));
+        String[] arrayDate = userRepository.readColumnWholeFile(4, new File(Manager.normalDocList.get(0).getIsCreditorFilePath()));
+        for (int i = 0; i < arrayDate.length; i++) {
+            System.out.println(ConvertTime.findDifferencesInDays(arrayDate[i]));
+        }
+        double notCashed = Accounting.calculateMoney(new File(Manager.checkDocList.get(0).getNotCashedFilePath()));
 
 
     }

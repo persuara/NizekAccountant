@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="github.eloyzone.jalali.calendar" type="repository">
+    <properties maven-id="com.github.eloyzone:jalali-calendar:1.0.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jalali-calendar-1.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

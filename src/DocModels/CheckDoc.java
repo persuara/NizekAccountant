@@ -1,6 +1,6 @@
 package DocModels;
 
-import Date.Date;
+import Date.DateNizek;
 import Date.TimeNizek;
 import Login.Costumer;
 
@@ -8,7 +8,7 @@ public class CheckDoc implements  Documentable{
     private Costumer costumer;
     private String cost;
     private String description;
-    private Date date;
+    private DateNizek dateNizek;
     private TimeNizek timeNizek;
     private boolean isCashed;
     private String filePath = "checkFile.csv";
@@ -20,10 +20,10 @@ public class CheckDoc implements  Documentable{
     private final int userID;
 
 
-    public CheckDoc( String cost, String description, Date date, TimeNizek timeNizek, boolean isCashed, Costumer costumer) {
+    public CheckDoc(String cost, String description, DateNizek dateNizek, TimeNizek timeNizek, boolean isCashed, Costumer costumer) {
         this.cost = cost;
         this.description = description;
-        this.date = date;
+        this.dateNizek = dateNizek;
         this.timeNizek = timeNizek;
         this.isCashed = isCashed;
         this.costumer = costumer;
@@ -54,8 +54,8 @@ public class CheckDoc implements  Documentable{
         return description;
     }
 
-    public Date getDate() {
-        return date;
+    public DateNizek getDate() {
+        return dateNizek;
     }
 
     public TimeNizek getTime() {
