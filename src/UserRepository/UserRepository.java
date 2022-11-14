@@ -21,6 +21,7 @@ public class UserRepository implements Reposible {
     static String tempCHECk;
     static String tempAdmin;
     static boolean isPasswordUser;
+    static String dateStatic;
 
 
     // Edit Read Files so that it reads it data from arrayLists.
@@ -471,5 +472,36 @@ public class UserRepository implements Reposible {
             e.printStackTrace();
         }
         return listColumn.toArray(new String[0]);
+    }
+
+    // Method to Read Date from CHECKDOC
+    public String readDateFromCheck(CheckDoc checkDoc, int id) {
+
+
+        String name;
+        String cost;
+        String description;
+        String date;
+        String time;
+        try {
+            Scanner x = new Scanner(new File(checkDoc.getNotCashedFilePath()));
+            x.useDelimiter("[,\n]");
+            while (x.hasNext()) {
+                name = x.next();
+                cost = x.next();
+                description = x.next();
+                date = x.next();
+                time = x.next();
+                if (id == checkDoc.getUserID()) {
+                    dateStatic = date;
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchElementException e) {
+            e.toString();
+        }
+        return dateStatic;
     }
 }

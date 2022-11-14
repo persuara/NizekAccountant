@@ -53,30 +53,31 @@ public class Test1 {
                 new TimeNizek(),
                 Manager.costumerList.get(1)
         ));
-        Manager.addNormalDocument(new NormalDoc(
-                "19000",
-                "pay debt",
-                true,
-                new DateNizek(19,12,1390),
-                new TimeNizek(),
-                Manager.costumerList.get(1)
-        ));
-        Manager.addNormalDocument(new NormalDoc(
-                "8000",
-                "pay list",
-                false,
-                new DateNizek(5,9,1402),
-                new TimeNizek(),
-                Manager.costumerList.get(1)
-        ));
-        Manager.addNormalDocument(new NormalDoc(
-                "5000",
-                "pay sth",
-                false,
-                new DateNizek(1,3,1430),
-                new TimeNizek(),
-                Manager.costumerList.get(0)
-                ));
+//        Manager.addNormalDocument(new NormalDoc(
+//                "19000",
+//                "pay debt",
+//                true,
+//                new DateNizek(19,12,1390),
+//                new TimeNizek(),
+//                Manager.costumerList.get(1)
+//        ));
+//        Manager.addNormalDocument(new NormalDoc(
+//                "8000",
+//                "pay list",
+//                false,
+//                new DateNizek(5,9,1402),
+//                new TimeNizek(),
+//                Manager.costumerList.get(1)
+//        ));
+//        Manager.addNormalDocument(new NormalDoc(
+//                "5000",
+//                "pay sth",
+//                false,
+//                new DateNizek(1,3,1430),
+//                new TimeNizek(),
+//                Manager.costumerList.get(0)
+//                ));
+
 
 
 
@@ -91,43 +92,52 @@ public class Test1 {
         Manager.addCheckDocument(new CheckDoc(
                 "11000",
                 "Diamond for Elly",
-                new DateNizek(22,2,1301),
+                new DateNizek(22,2,1401),
                 new TimeNizek(),
                 true,
                 Manager.costumerList.get(0)
         ));
+
+
+
         Manager.addCheckDocument(new CheckDoc(
-                "12000",
+                "100",
                 "Rolex",
-                new DateNizek(1,2,1408),
+                new DateNizek(24,8,1401),
                 new TimeNizek(),
                 false,
                 Manager.costumerList.get(0)
         ));
         Manager.addCheckDocument(new CheckDoc(
-                "41000",
+                "200",
                 "Hospital Bill",
-                new DateNizek(1,2,1419),
+                new DateNizek(27,8,1401),
                 new TimeNizek(),
                 false,
                 Manager.costumerList.get(0)
         ));
         Manager.addCheckDocument(new CheckDoc(
-                "19000",
+                "100",
                 "RangeRover",
-                new DateNizek(1,2,1410),
+                new DateNizek(26,8,1401),
                 new TimeNizek(),
                 false,
                 Manager.costumerList.get(0)
         ));
 
+        int sum = 0;
+        int weightSum = 0;
 
-//        System.out.println(userRepository.readWholeFile(new File(Manager.normalDocList.get(0).getIsCreditorFilePath())));
-        String[] arrayDate = userRepository.readColumnWholeFile(4, new File(Manager.normalDocList.get(0).getIsCreditorFilePath()));
-        for (int i = 0; i < arrayDate.length; i++) {
-            System.out.println(ConvertTime.findDifferencesInDays(arrayDate[i]));
+        for (CheckDoc check: Manager.checkDocList) {
+            sum+= Converter.convertToDouble(check.getCost());
+            weightSum += (ConvertTime.findDifferencesInDays(
+                    userRepository.readDateFromCheck(check, check.getUserID())
+            )) * Converter.convertToDouble(check.getCost());
+            System.out.println(weightSum/sum);
         }
-        double notCashed = Accounting.calculateMoney(new File(Manager.checkDocList.get(0).getNotCashedFilePath()));
+
+
+
 
 
     }
