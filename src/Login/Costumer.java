@@ -11,7 +11,7 @@ public class Costumer {
     private String phone;
     private String email;
     private int ID;
-    private final String filePath = "DataBase/Costumers/costumerFile.csv";
+    private final String filePath = "costumerFile.csv";
 
     public Costumer(String name, String nationalID, GroupType groupType, String address, String phone, String email) {
         this.name = name;

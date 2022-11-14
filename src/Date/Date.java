@@ -23,6 +23,13 @@ public class Date {
         return year;
     }
 
+    public int differenceInDay() {
+        return this.day - java.time.LocalDate.now().getDayOfMonth();
+    }
+    public int differenceInMonth() {
+        return (this.month - java.time.LocalDate.now().getMonthValue()) + 31;
+    }
+
     @Override
     public String toString() {
         return String.format("%d/%d/%d", year,month,day);

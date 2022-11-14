@@ -10,13 +10,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/checkFile.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="/costumerFile.csv">
           <value>
             <Attribute>
@@ -52,7 +45,14 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/userFile.csv">
+        <entry key="/src/DataBase/CheckDocuments/checkFile.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/DataBase/Costumers/costumerFile.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

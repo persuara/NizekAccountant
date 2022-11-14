@@ -11,9 +11,9 @@ public class CheckDoc implements  Documentable{
     private Date date;
     private TimeNizek timeNizek;
     private boolean isCashed;
-    private String filePath = "DataBase/CheckDocuments/checkFile.csv";
-    private String cashedFilePath = "DataBase/CheckDocuments/cashedCheck.csv";
-    private String notCashedFilePath = "DataBase/CheckDocuments/notCashedCheck.csv";
+    private String filePath = "checkFile.csv";
+    private String cashedFilePath = "cashedCheck.csv";
+    private String notCashedFilePath = "notCashedCheck.csv";
 
 
 

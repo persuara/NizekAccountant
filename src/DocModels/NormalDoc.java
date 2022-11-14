@@ -14,9 +14,9 @@ public class NormalDoc implements Documentable {
     private TimeNizek timeNizek;
 
     private int userID;
-    private final String filePath = "DataBase/NormalDocuments/normalDoc.csv";
-    private final String isCreditorFilePath = "DataBase/NormalDocuments/creditor.csv";
-    private final String notCreditorFilePath = "DataBase/NormalDocuments/notCreditor.csv";
+    private final String filePath = "normalDoc.csv";
+    private final String isCreditorFilePath = "creditor.csv";
+    private final String notCreditorFilePath = "notCreditor.csv";
 
     public NormalDoc(String cost, String description, boolean isCreditor, Date date, TimeNizek timeNizek, Costumer costumer) {
         this.cost = cost;

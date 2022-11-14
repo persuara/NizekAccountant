@@ -10,6 +10,7 @@ import ModelManager.Manager;
 import java.io.*;
 import java.util.*;
 
+
 public class UserRepository implements Reposible {
 
     static String costNormal;
@@ -20,7 +21,6 @@ public class UserRepository implements Reposible {
     static String tempCHECk;
     static String tempAdmin;
     static boolean isPasswordUser;
-    static Date dateUser;
 
 
     // Edit Read Files so that it reads it data from arrayLists.
@@ -57,7 +57,6 @@ public class UserRepository implements Reposible {
 
     @Override
     public String readFile(NormalDoc normalDoc, int id) {
-        boolean isFound = false;
         String name;
         String cost;
         String description;
@@ -68,7 +67,7 @@ public class UserRepository implements Reposible {
         try {
             Scanner x = new Scanner(new File(normalDoc.getFilePath()));
             x.useDelimiter("[,\n]");
-            while (x.hasNext() && !isFound) {
+            while (x.hasNext()) {
                 name = x.next();
                 cost = x.next();
                 description = x.next();
@@ -77,8 +76,8 @@ public class UserRepository implements Reposible {
                 time = x.next();
                 userID = x.next();
                 if (id == normalDoc.getUserID()) {
-                    isFound = true;
                     tempNORMAL = String.format("%s, %s, %s, %s, %s, %s, %s", name, cost, description, isCreditor, date, time, userID);
+                    break;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -253,7 +252,6 @@ public class UserRepository implements Reposible {
     public void writeIFCashedToFile(CheckDoc checkDoc) {
         try {
             if (checkDoc.isCashed()) {
-
                 FileWriter fileWriter = new FileWriter(checkDoc.getCashedFilePath(), true);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
                 PrintWriter printWriter = new PrintWriter(bufferedWriter);
@@ -267,22 +265,18 @@ public class UserRepository implements Reposible {
                 printWriter.flush();
                 printWriter.close();
             } else {
-                try {
-                    FileWriter fileWriter = new FileWriter(checkDoc.getNotCashedFilePath(), true);
-                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                    PrintWriter printWriter = new PrintWriter(bufferedWriter);
-                    printWriter.printf("%s, %s, %s, %s, %s, %d\n",
-                            checkDoc.getUser().getName(),
-                            checkDoc.getCost(),
-                            checkDoc.getDescription(),
-                            checkDoc.getDate(),
-                            checkDoc.getTime(),
-                            checkDoc.getUserID());
-                    printWriter.flush();
-                    printWriter.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                FileWriter fileWriter = new FileWriter(checkDoc.getNotCashedFilePath(), true);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                PrintWriter printWriter = new PrintWriter(bufferedWriter);
+                printWriter.printf("%s, %s, %s, %s, %s, %d\n",
+                        checkDoc.getUser().getName(),
+                        checkDoc.getCost(),
+                        checkDoc.getDescription(),
+                        checkDoc.getDate(),
+                        checkDoc.getTime(),
+                        checkDoc.getUserID());
+                printWriter.flush();
+                printWriter.close();
             }
         } catch (IOException e) {
             e.printStackTrace();

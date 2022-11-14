@@ -42,38 +42,38 @@ public class Test1 {
                 "email@gmail.com"
                 ));
 //
-//        Manager.addNormalDocument(new NormalDoc(
-//                "1000",
-//                "pay sth",
-//                true,
-//                new Date(1,1,1400),
-//                new TimeNizek(),
-//                Manager.costumerList.get(1)
-//        ));
-//        Manager.addNormalDocument(new NormalDoc(
-//                "19000",
-//                "pay debt",
-//                true,
-//                new Date(19,12,1420),
-//                new TimeNizek(),
-//                Manager.costumerList.get(1)
-//        ));
-//        Manager.addNormalDocument(new NormalDoc(
-//                "8000",
-//                "pay list",
-//                false,
-//                new Date(12,1,1400),
-//                new TimeNizek(),
-//                Manager.costumerList.get(1)
-//        ));
-//        Manager.addNormalDocument(new NormalDoc(
-//                "5000",
-//                "pay sth",
-//                false,
-//                new Date(5,1,1401),
-//                new TimeNizek(),
-//                Manager.costumerList.get(0)
-//                ));
+        Manager.addNormalDocument(new NormalDoc(
+                "1000",
+                "pay sth",
+                true,
+                new Date(1,1,1400),
+                new TimeNizek(),
+                Manager.costumerList.get(1)
+        ));
+        Manager.addNormalDocument(new NormalDoc(
+                "19000",
+                "pay debt",
+                true,
+                new Date(19,12,1420),
+                new TimeNizek(),
+                Manager.costumerList.get(1)
+        ));
+        Manager.addNormalDocument(new NormalDoc(
+                "8000",
+                "pay list",
+                false,
+                new Date(12,1,1400),
+                new TimeNizek(),
+                Manager.costumerList.get(1)
+        ));
+        Manager.addNormalDocument(new NormalDoc(
+                "5000",
+                "pay sth",
+                false,
+                new Date(5,1,1401),
+                new TimeNizek(),
+                Manager.costumerList.get(0)
+                ));
 
 
 
@@ -119,10 +119,9 @@ public class Test1 {
         ));
 
 
-        System.out.println("Cashed: " + Accounting.calculateMoney(new File(Manager.checkDocList.get(0).getCashedFilePath())));
-        System.out.println("Not Cashed" + Accounting.calculateMoney(new File(Manager.checkDocList.get(0).getNotCashedFilePath())));
-        System.out.println("all in one: " + Accounting.reportAllTransactionCHECK(new File(Manager.checkDocList.get(0).getFilePath())));
-
+//        System.out.println("Cashed: " + Accounting.calculateMoney(new File(Manager.checkDocList.get(0).getCashedFilePath())));
+//        System.out.println("Not Cashed" + Accounting.calculateMoney(new File(Manager.checkDocList.get(0).getNotCashedFilePath())));
+//        System.out.println("all in one: " + Accounting.reportAllTransactionCHECK(new File(Manager.checkDocList.get(0).getFilePath())));
 
 
     }
