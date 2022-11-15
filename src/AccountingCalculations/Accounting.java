@@ -22,23 +22,6 @@ public class Accounting {
         }
         return result;
     }
-
-    public static List<Integer> calculateWeight() {
-        String[] arrayDate = userRepository.readColumnWholeFile(3, new File(Manager.checkDocList.get(0).getNotCashedFilePath()));
-        String[] arrayCost = userRepository.readColumnWholeFile(1, new File(Manager.checkDocList.get(0).getNotCashedFilePath()));
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < arrayDate.length; i++) {
-            for (int j = 0; j < arrayCost.length; j++) {
-                list.add(
-                        (int) ((ConvertTime.findDifferencesInDays(arrayDate[i]) *
-                                Converter.convertToDouble(arrayCost[j])) / calculateMoney(new File(Manager.checkDocList.get(0).getNotCashedFilePath()))));
-            }
-        }
-        return list;
-    }
-    //
-
-
     public static double reportAllTransactionNORMAL(List<NormalDoc> normalDocList) {
         double creditorSum = calculateMoney(new File(normalDocList.get(0).getIsCreditorFilePath()));
         double notCreditorSum = calculateMoney(new File(normalDocList.get(0).getNotCreditorFilePath()));
@@ -63,5 +46,26 @@ public class Accounting {
             result = "سر به سر";
         }
         return result;
+    }
+
+    //Calculate Check time-bill!
+    public static double calculateWeight() {
+        List<String> stringList;
+        double result = 0;
+        int sum = 0;
+
+        stringList = userRepository.readDateFromCheck(Manager.checkDocList);
+        List<Integer> integerList = new ArrayList<>();
+        for (String stringDate : stringList) {
+            integerList.add((int) ConvertTime.findDifferencesInDays(stringDate));
+        }
+
+        List<Double> doubleList;
+        doubleList = userRepository.readCostFromCheck(Manager.checkDocList);
+        for (int i = 0; i < doubleList.size(); i++) {
+            result += (doubleList.get(i) * integerList.get(i));
+            sum += doubleList.get(i);
+        }
+        return  (result/sum);
     }
 }

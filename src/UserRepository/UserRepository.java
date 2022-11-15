@@ -2,6 +2,7 @@ package UserRepository;
 
 import AdminModel.Admin;
 import ConverterHelper.ConvertTime;
+import ConverterHelper.Converter;
 import DocModels.CheckDoc;
 import DocModels.NormalDoc;
 import Login.Costumer;
@@ -86,6 +87,34 @@ public class UserRepository implements Reposible {
         }
         return tempNORMAL;
     }
+    public String readCostumerBasedOnNationalID(List<Costumer> costumerList, String inputNationalID) {
+        for (Costumer costumer: costumerList) {
+            if (inputNationalID.equals(costumer.getNationalID())) {
+                return String.format("%s, %s, %s, %s, %s, %s",
+                        costumer.getName(),
+                        costumer.getNationalID(),
+                        costumer.getGroupType(),
+                        costumer.getEmail(),
+                        costumer.getAddress(),
+                        costumer.getPhone());
+            }
+        }
+        return "Not Found";
+    }public String readCostumerBasedOnName(List<Costumer> costumerList, String name) {
+        for (Costumer costumer: costumerList) {
+            if (name.equals(costumer.getName())) {
+                return String.format("%s, %s, %s, %s, %s, %s",
+                        costumer.getName(),
+                        costumer.getNationalID(),
+                        costumer.getGroupType(),
+                        costumer.getEmail(),
+                        costumer.getAddress(),
+                        costumer.getPhone());
+            }
+        }
+        return "Not Found";
+    }
+
 
     @Override
     public String readFile(Costumer costumer, String inputNationalID) {
@@ -330,26 +359,20 @@ public class UserRepository implements Reposible {
     /////////   READ COST FROM BOTH NORMAL DOC AND CHECK DOC!!!!!
 
     public String readCostFromFile(NormalDoc normalDoc, int id) {
-        boolean isFound = false;
-        String name;
         String cost;
-        String description;
-        String isCreditor;
-        String date;
-        String time;
         try {
             Scanner x = new Scanner(new File(normalDoc.getFilePath()));
             x.useDelimiter("[,\n]");
-            while (x.hasNext() && !isFound) {
-                name = x.next();
+            while (x.hasNext()) {
+                x.next();
                 cost = x.next();
-                description = x.next();
-                isCreditor = x.next();
-                date = x.next();
-                time = x.next();
+                x.next();
+                x.next();
+                x.next();
+                x.next();
                 if (id == normalDoc.getUserID()) {
-                    isFound = true;
                     costNormal = cost;
+                    break;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -361,24 +384,19 @@ public class UserRepository implements Reposible {
     }
 
     public String readCostFromFile(CheckDoc checkDoc, int id) {
-        boolean isFound = false;
-        String name;
         String cost;
-        String description;
-        String date;
-        String time;
         try {
             Scanner x = new Scanner(new File(checkDoc.getFilePath()));
             x.useDelimiter("[,\n]");
-            while (x.hasNext() && !isFound) {
-                name = x.next();
+            while (x.hasNext()) {
+                x.next();
                 cost = x.next();
-                description = x.next();
-                date = x.next();
-                time = x.next();
+                x.next();
+                x.next();
+                x.next();
                 if (id == checkDoc.getUserID()) {
-                    isFound = true;
                     costCheck = cost;
+                    break;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -393,16 +411,13 @@ public class UserRepository implements Reposible {
 
     public boolean readValidateAdmin(Admin admin, String inputEmail, String inputPassword) {
         boolean isFound = false;
-        String name;
-        String email;
-        String password;
         try {
             Scanner x = new Scanner(new File(admin.getFilePath()));
             x.useDelimiter("[,\n]");
             while (x.hasNext() && !isFound) {
-                name = x.next();
-                email = x.next();
-                password = x.next();
+                x.next();
+                x.next();
+                x.next();
                 if (inputEmail.equals(admin.getEmail()) && inputPassword.equals(admin.getPassword())) {
                     isFound = true;
                     isEmailUser = true;
@@ -426,14 +441,12 @@ public class UserRepository implements Reposible {
         String tempFileAddress = "temp.csv";
         File oldFile = new File(normalDoc.getFilePath());
         File newFile = new File(tempFileAddress);
-
         String currentLine;
         int line = 0;
         try {
             FileWriter fileWriter = new FileWriter(tempFileAddress, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             PrintWriter printWriter = new PrintWriter(bufferedWriter);
-
             FileReader fileReader = new FileReader(normalDoc.getFilePath());
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             while ((currentLine = bufferedReader.readLine()) != null) {
@@ -475,33 +488,27 @@ public class UserRepository implements Reposible {
     }
 
     // Method to Read Date from CHECKDOC
-    public String readDateFromCheck(CheckDoc checkDoc, int id) {
+    public List<String> readDateFromCheck(List<CheckDoc> checkDocList) {
 
-
-        String name;
-        String cost;
-        String description;
-        String date;
-        String time;
-        try {
-            Scanner x = new Scanner(new File(checkDoc.getNotCashedFilePath()));
-            x.useDelimiter("[,\n]");
-            while (x.hasNext()) {
-                name = x.next();
-                cost = x.next();
-                description = x.next();
-                date = x.next();
-                time = x.next();
-                if (id == checkDoc.getUserID()) {
-                    dateStatic = date;
-                    break;
-                }
+        List<String> arrayDate = new ArrayList<>();
+        for (CheckDoc checkDoc : checkDocList) {
+            if (!(checkDoc.isCashed())) {
+                arrayDate.add(ConvertTime.convertToGregorian(checkDoc.getDate()));
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchElementException e) {
-            e.toString();
         }
-        return dateStatic;
+        return arrayDate;
     }
+
+    public List<Double> readCostFromCheck(List<CheckDoc> checkDocList) {
+
+        List<Double> arrayCost = new ArrayList<>();
+        for (CheckDoc checkDoc : checkDocList) {
+            if (!(checkDoc.isCashed())) {
+                arrayCost.add(Converter.convertToDouble(checkDoc.getCost()));
+            }
+        }
+        return arrayCost;
+    }
+
+//    public List<String> readFiltered(List<>)
 }

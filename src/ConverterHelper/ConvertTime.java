@@ -36,14 +36,11 @@ public class ConvertTime {
             String formatedLocalDate = formatter.format(date);
             Date dueDate = formatter.parse(inputDueDate);
             Date localDate = formatter.parse(formatedLocalDate);
-            System.out.println(dueDate);
-            System.out.println(localDate);
             differenceInTime = dueDate.getTime() - localDate.getTime();
             differenceInDays = (differenceInTime / (1000 * 60 * 60 * 24)) % 365;
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println(differenceInDays);
         return differenceInDays;
     }
 
