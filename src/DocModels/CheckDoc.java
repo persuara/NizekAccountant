@@ -4,7 +4,7 @@ import Date.DateNizek;
 import Date.TimeNizek;
 import Login.Costumer;
 
-public class CheckDoc implements  Documentable{
+public class CheckDoc implements Documentable {
     private Costumer costumer;
     private String cost;
     private String description;
@@ -14,8 +14,6 @@ public class CheckDoc implements  Documentable{
     private String filePath = "checkFile.csv";
     private String cashedFilePath = "cashedCheck.csv";
     private String notCashedFilePath = "notCashedCheck.csv";
-
-
 
     private final int userID;
 
@@ -33,17 +31,13 @@ public class CheckDoc implements  Documentable{
     public int getUserID() {
         return userID;
     }
+
     public boolean isCashed() {
         return isCashed;
     }
 
-
     public Costumer getUser() {
         return costumer;
-    }
-
-    public String getPayee() {
-        return costumer.getName();
     }
 
     public String getCost() {
@@ -74,13 +68,24 @@ public class CheckDoc implements  Documentable{
         return notCashedFilePath;
     }
 
+    public String convertCashed(boolean isCashed) {
+        String result = "";
+        if (isCashed) {
+            result = "وصول شده";
+        } else {
+            result = "وصول نشده";
+        }
+        return result;
+    }
+
     @Override
     public String toString() {
-        return "CheckDoc{" +
-                "costumer=" + costumer +
-                ", cost='" + cost + '\'' +
-                ", isCashed=" + isCashed +
-                ", userID=" + userID +
-                '}';
+        return String.format("%s, %s, %s, %s, %s, %s",
+                getUser().getName(),
+                getCost(),
+                getDescription(),
+                convertCashed(isCashed()),
+                getDate().toString(),
+                getTime().toString());
     }
 }

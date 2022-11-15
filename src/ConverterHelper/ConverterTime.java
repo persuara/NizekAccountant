@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class ConvertTime {
+public class ConverterTime {
     public static String convertToGregorian(DateNizek dateNizek) {
         DateConverter dateConverter = new DateConverter();
         LocalDate localDate = dateConverter.jalaliToGregorian(dateNizek.getYear(), dateNizek.getMonth(), dateNizek.getDay());

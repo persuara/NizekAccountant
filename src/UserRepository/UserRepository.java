@@ -1,12 +1,11 @@
 package UserRepository;
 
 import AdminModel.Admin;
-import ConverterHelper.ConvertTime;
+import ConverterHelper.ConverterTime;
 import ConverterHelper.Converter;
 import DocModels.CheckDoc;
 import DocModels.NormalDoc;
 import Login.Costumer;
-import ModelManager.Manager;
 
 import java.io.*;
 import java.util.*;
@@ -25,7 +24,6 @@ public class UserRepository implements Reposible {
     static String dateStatic;
 
 
-    // Edit Read Files so that it reads it data from arrayLists.
 
 
     @Override
@@ -47,7 +45,7 @@ public class UserRepository implements Reposible {
                 time = x.next();
                 userID = x.next();
                 if (id == checkDoc.getUserID()) {
-                    tempCHECk = String.format("%s, %s, %s, %s,  %s, %s", name, cost, description, ConvertTime.convertToPersian(date), time, userID);
+                    tempCHECk = String.format("%s, %s, %s, %s,  %s, %s", name, cost, description, ConverterTime.convertToPersian(date), time, userID);
                     break;
                 }
             }
@@ -57,6 +55,7 @@ public class UserRepository implements Reposible {
         return tempCHECk;
     }
 
+    //$$$$$$$$$$$$$$$$$---------$$$$$$$$$$ FINAL $$$$$$$$$$---------$$$$$$$$$$$$$$$$$
     @Override
     public String readFile(NormalDoc normalDoc, int id) {
         String name;
@@ -78,7 +77,7 @@ public class UserRepository implements Reposible {
                 time = x.next();
                 userID = x.next();
                 if (id == normalDoc.getUserID()) {
-                    tempNORMAL = String.format("%s, %s, %s, %s, %s, %s, %s", name, cost, description, isCreditor, ConvertTime.convertToPersian(date), time, userID);
+                    tempNORMAL = String.format("%s, %s, %s, %s, %s, %s, %s", name, cost, description, isCreditor, ConverterTime.convertToPersian(date), time, userID);
                     break;
                 }
             }
@@ -100,7 +99,8 @@ public class UserRepository implements Reposible {
             }
         }
         return "Not Found";
-    }public String readCostumerBasedOnName(List<Costumer> costumerList, String name) {
+    }
+    public String readCostumerBasedOnName(List<Costumer> costumerList, String name) {
         for (Costumer costumer: costumerList) {
             if (name.equals(costumer.getName())) {
                 return String.format("%s, %s, %s, %s, %s, %s",
@@ -113,6 +113,67 @@ public class UserRepository implements Reposible {
             }
         }
         return "Not Found";
+    }
+//    public List<NormalDoc> readWholeNormalDocument(List<NormalDoc> normalDocList) {
+//        List<NormalDoc> foundList = new ArrayList<>();
+//        for (NormalDoc normalDoc: normalDocList) {
+//
+//        }
+//        return foundList;
+//    }
+    public List<NormalDoc> readBasedOnDay(List<NormalDoc> normalDocList, int day, int month, int year) {
+        List<NormalDoc> filteredList = new ArrayList<>();
+        for (NormalDoc object: normalDocList) {
+            if (day == object.getDate().getDay() && month == object.getDate().getMonth() && year == object.getDate().getYear()) {
+                filteredList.add(object);
+            }
+        }
+        return filteredList;
+    }
+    public List<NormalDoc> readBasedOnMonth(List<NormalDoc> normalDocList,  int month, int year) {
+        List<NormalDoc> filteredList = new ArrayList<>();
+        for (NormalDoc object: normalDocList) {
+            if (month == object.getDate().getMonth() && year == object.getDate().getYear()) {
+                filteredList.add(object);
+            }
+        }
+        return filteredList;
+    }
+    public List<NormalDoc> readBasedOnYear(List<NormalDoc> normalDocList,int year) {
+        List<NormalDoc> filteredList = new ArrayList<>();
+        for (NormalDoc object: normalDocList) {
+            if (year == object.getDate().getYear()) {
+                filteredList.add(object);
+            }
+        }
+        return filteredList;
+    }
+    public List<CheckDoc> readBasedOnDayCheck(List<CheckDoc> checkDocList, int day, int month, int year) {
+        List<CheckDoc> filteredList = new ArrayList<>();
+        for (CheckDoc object: checkDocList) {
+            if (day == object.getDate().getDay() && month == object.getDate().getMonth() && year == object.getDate().getYear()) {
+                filteredList.add(object);
+            }
+        }
+        return filteredList;
+    }
+    public List<CheckDoc> readBasedOnMonthCheck(List<CheckDoc> checkDocList,  int month, int year) {
+        List<CheckDoc> filteredList = new ArrayList<>();
+        for (CheckDoc object: checkDocList) {
+            if (month == object.getDate().getMonth() && year == object.getDate().getYear()) {
+                filteredList.add(object);
+            }
+        }
+        return filteredList;
+    }
+    public List<CheckDoc> readBasedOnYearCheck(List<CheckDoc> checkDocList,int year) {
+        List<CheckDoc> filteredList = new ArrayList<>();
+        for (CheckDoc object: checkDocList) {
+            if (year == object.getDate().getYear()) {
+                filteredList.add(object);
+            }
+        }
+        return filteredList;
     }
 
 
@@ -135,7 +196,6 @@ public class UserRepository implements Reposible {
                 address = x.next();
                 phone = x.next();
                 email = x.next();
-
                 if (inputNationalID.equals(costumer.getNationalID())) {
                     isFound = true;
                     tempUser = String.format("%s , %s, %s, %s, %s, %s", name, nationalID, groupType, address, phone, email);
@@ -203,13 +263,12 @@ public class UserRepository implements Reposible {
                     normalDoc.getCost(),
                     normalDoc.getDescription(),
                     normalDoc.isCreditor(),
-                    ConvertTime.convertToGregorian(normalDoc.getDate()),
+                    ConverterTime.convertToGregorian(normalDoc.getDate()),
                     normalDoc.getTime(),
                     normalDoc.getUserID()
             );
             printWriter.flush();
             printWriter.close();
-            System.out.println("Successfully added to data base" + normalDoc.getCost());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -226,13 +285,12 @@ public class UserRepository implements Reposible {
                         normalDoc.getCost(),
                         normalDoc.getDescription(),
                         normalDoc.isCreditor(),
-                        ConvertTime.convertToGregorian(normalDoc.getDate()),
+                        ConverterTime.convertToGregorian(normalDoc.getDate()),
                         normalDoc.getTime(),
                         normalDoc.getUserID()
                 );
                 printWriter.flush();
                 printWriter.close();
-                System.out.println("Successfully added to data base" + normalDoc.getCost());
             } else {
                 try {
                     FileWriter fileWriter = new FileWriter(normalDoc.getNotCreditorFilePath(), true);
@@ -243,13 +301,12 @@ public class UserRepository implements Reposible {
                             normalDoc.getCost(),
                             normalDoc.getDescription(),
                             normalDoc.isCreditor(),
-                            ConvertTime.convertToGregorian(normalDoc.getDate()),
+                            ConverterTime.convertToGregorian(normalDoc.getDate()),
                             normalDoc.getTime(),
                             normalDoc.getUserID()
                     );
                     printWriter.flush();
                     printWriter.close();
-                    System.out.println("Successfully added to data base" + normalDoc.getCost());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -269,7 +326,7 @@ public class UserRepository implements Reposible {
                     checkDoc.getUser().getName(),
                     checkDoc.getCost(),
                     checkDoc.getDescription(),
-                    ConvertTime.convertToGregorian(checkDoc.getDate()),
+                    ConverterTime.convertToGregorian(checkDoc.getDate()),
                     checkDoc.getTime(),
                     checkDoc.getUserID());
             printWriter.flush();
@@ -289,7 +346,7 @@ public class UserRepository implements Reposible {
                         checkDoc.getUser().getName(),
                         checkDoc.getCost(),
                         checkDoc.getDescription(),
-                        ConvertTime.convertToGregorian(checkDoc.getDate()),
+                        ConverterTime.convertToGregorian(checkDoc.getDate()),
                         checkDoc.getTime(),
                         checkDoc.getUserID());
                 printWriter.flush();
@@ -302,7 +359,7 @@ public class UserRepository implements Reposible {
                         checkDoc.getUser().getName(),
                         checkDoc.getCost(),
                         checkDoc.getDescription(),
-                        ConvertTime.convertToGregorian(checkDoc.getDate()),
+                        ConverterTime.convertToGregorian(checkDoc.getDate()),
                         checkDoc.getTime(),
                         checkDoc.getUserID());
                 printWriter.flush();
@@ -493,7 +550,7 @@ public class UserRepository implements Reposible {
         List<String> arrayDate = new ArrayList<>();
         for (CheckDoc checkDoc : checkDocList) {
             if (!(checkDoc.isCashed())) {
-                arrayDate.add(ConvertTime.convertToGregorian(checkDoc.getDate()));
+                arrayDate.add(ConverterTime.convertToGregorian(checkDoc.getDate()));
             }
         }
         return arrayDate;

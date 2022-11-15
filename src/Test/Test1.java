@@ -1,8 +1,6 @@
 package Test;
 
 
-import AccountingCalculations.Accounting;
-import ConverterHelper.ConvertTime;
 import ConverterHelper.Converter;
 import Date.DateNizek;
 import Date.TimeNizek;
@@ -14,9 +12,6 @@ import ModelManager.Manager;
 import UserRepository.UserRepository;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Test1 {
     static NormalDoc normalDoc;
@@ -53,38 +48,38 @@ public class Test1 {
                 "1000",
                 "pay sth",
                 true,
-                new DateNizek(31, 6, 1320),
+                new DateNizek(31, 6, 1402),
                 new TimeNizek(),
                 Manager.costumerList.get(1)
         ));
-//        Manager.addNormalDocument(new NormalDoc(
-//                "19000",
-//                "pay debt",
-//                true,
-//                new DateNizek(19,12,1390),
-//                new TimeNizek(),
-//                Manager.costumerList.get(1)
-//        ));
-//        Manager.addNormalDocument(new NormalDoc(
-//                "8000",
-//                "pay list",
-//                false,
-//                new DateNizek(5,9,1402),
-//                new TimeNizek(),
-//                Manager.costumerList.get(1)
-//        ));
-//        Manager.addNormalDocument(new NormalDoc(
-//                "5000",
-//                "pay sth",
-//                false,
-//                new DateNizek(1,3,1430),
-//                new TimeNizek(),
-//                Manager.costumerList.get(0)
-//                ));
+        Manager.addNormalDocument(new NormalDoc(
+                "19000",
+                "pay debt",
+                true,
+                new DateNizek(12,9,1402),
+                new TimeNizek(),
+                Manager.costumerList.get(1)
+        ));
+        Manager.addNormalDocument(new NormalDoc(
+                "8000",
+                "pay list",
+                false,
+                new DateNizek(5,9,1402),
+                new TimeNizek(),
+                Manager.costumerList.get(1)
+        ));
+        Manager.addNormalDocument(new NormalDoc(
+                "5000",
+                "pay sth",
+                false,
+                new DateNizek(1,3,1402),
+                new TimeNizek(),
+                Manager.costumerList.get(0)
+                ));
 
 
         Manager.addCheckDocument(new CheckDoc(
-                "500",
+                "666",
                 "pay sth also",
                 new DateNizek(12, 11, 1398),
                 new TimeNizek(),
@@ -125,8 +120,7 @@ public class Test1 {
                 true,
                 Manager.costumerList.get(0)
         ));
-//        System.out.println(Accounting.calculateWeight());
-        System.out.println(userRepository.readCostumerBasedOnNationalID(Manager.costumerList, "123223"));
-        System.out.println(userRepository.readCostumerBasedOnName(Manager.costumerList, "Amir"));
+        Converter.convertToNormalDocument(Manager.checkDocList.get(0));
+        System.out.println(Manager.normalDocList.get(Manager.normalDocList.size() - 1));
     }
 }

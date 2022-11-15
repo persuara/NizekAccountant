@@ -1,8 +1,5 @@
 package Test;
 
-import ConverterHelper.ConvertTime;
-import Date.DateNizek;
-
 public class Log {
     /* Only to jot down ideas
      1. Add method!

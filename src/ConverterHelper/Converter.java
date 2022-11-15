@@ -1,15 +1,23 @@
 package ConverterHelper;
 
-public class Converter {
-    private final String DATE_FORMAT_PERSIAN = "yyyy-MM-dd HH:mm:ss";
-    private final String DATE_FORMAT_UTC = "yyyy-dd-MM HH:mm:ss";
+import DocModels.CheckDoc;
+import DocModels.NormalDoc;
+import ModelManager.Manager;
 
+public class Converter {
     public static Double convertToDouble(String text) {
         return Double.parseDouble(text);
     }
-    public static String convertToString(Double file) {
-        return String.valueOf(file);
+
+    public static void convertToNormalDocument(CheckDoc checkDoc) {
+        Manager.addNormalDocument(new NormalDoc(
+                checkDoc.getCost(),
+                checkDoc.getDescription(),
+                true,
+                checkDoc.getDate(),
+                checkDoc.getTime(),
+                checkDoc.getUser()
+        ));
+        Manager.removeFromList(checkDoc);
     }
-
-
 }

@@ -1,6 +1,6 @@
 package AccountingCalculations;
 
-import ConverterHelper.ConvertTime;
+import ConverterHelper.ConverterTime;
 import ConverterHelper.Converter;
 import DocModels.CheckDoc;
 import DocModels.NormalDoc;
@@ -57,7 +57,7 @@ public class Accounting {
         stringList = userRepository.readDateFromCheck(Manager.checkDocList);
         List<Integer> integerList = new ArrayList<>();
         for (String stringDate : stringList) {
-            integerList.add((int) ConvertTime.findDifferencesInDays(stringDate));
+            integerList.add((int) ConverterTime.findDifferencesInDays(stringDate));
         }
 
         List<Double> doubleList;

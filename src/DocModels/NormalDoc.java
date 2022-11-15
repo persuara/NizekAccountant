@@ -6,7 +6,6 @@ import Login.Costumer;
 
 public class NormalDoc implements Documentable {
     private Costumer costumer;
-    private String payee;
     private String cost;
     private String description;
     private boolean isCreditor;
@@ -38,11 +37,6 @@ public class NormalDoc implements Documentable {
     public void setUser(Costumer costumer) {
         this.costumer = costumer;
     }
-
-    public void setPayee(String payee) {
-        this.payee = payee;
-    }
-
     public void setCost(String cost) {
         this.cost = cost;
     }
@@ -67,11 +61,6 @@ public class NormalDoc implements Documentable {
     public int getUserID() {
         return userID;
     }
-
-    public String getPayee() {
-        return costumer.getName();
-    }
-
     public String getCost() {
         return cost;
     }
@@ -83,11 +72,9 @@ public class NormalDoc implements Documentable {
     public boolean isCreditor() {
         return isCreditor;
     }
-
     public DateNizek getDate() {
         return dateNizek;
     }
-
     public TimeNizek getTime() {
         return timeNizek;
     }
@@ -102,5 +89,25 @@ public class NormalDoc implements Documentable {
     public String getIsCreditorFilePath() {
         return isCreditorFilePath;
     }
+    public  String convertCreditor(boolean isCreditor) {
+        String result = "Undefined!";
+        if (isCreditor) {
+            result = "بستانکار";
+        } else {
+            result = "بدهکار";
+        }
+        return  result;
+    }
 
+    @Override
+    public String toString() {
+        return String.format("%s, %s, %s, %s, %s, %s",
+                getUser().getName(),
+                getCost(),
+                getDescription(),
+                convertCreditor(isCreditor()),
+                getDate().toString(),
+                getTime().toString()
+        );
+    }
 }
