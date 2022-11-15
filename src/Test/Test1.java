@@ -1,7 +1,7 @@
 package Test;
 
 
-import ConverterHelper.Converter;
+import AccountingCalculations.Accounting;
 import Date.DateNizek;
 import Date.TimeNizek;
 import DocModels.CheckDoc;
@@ -45,7 +45,7 @@ public class Test1 {
         ));
 //
         Manager.addNormalDocument(new NormalDoc(
-                "1000",
+                "51000",
                 "pay sth",
                 true,
                 new DateNizek(31, 6, 1402),
@@ -53,7 +53,7 @@ public class Test1 {
                 Manager.costumerList.get(1)
         ));
         Manager.addNormalDocument(new NormalDoc(
-                "19000",
+                "5000",
                 "pay debt",
                 true,
                 new DateNizek(12,9,1402),
@@ -61,7 +61,7 @@ public class Test1 {
                 Manager.costumerList.get(1)
         ));
         Manager.addNormalDocument(new NormalDoc(
-                "8000",
+                "5000",
                 "pay list",
                 false,
                 new DateNizek(5,9,1402),
@@ -81,9 +81,9 @@ public class Test1 {
         Manager.addCheckDocument(new CheckDoc(
                 "666",
                 "pay sth also",
-                new DateNizek(12, 11, 1398),
+                new DateNizek(24, 8, 1401),
                 new TimeNizek(),
-                true,
+                false,
                 Manager.costumerList.get(1)
         ));
         Manager.addCheckDocument(new CheckDoc(
@@ -99,7 +99,7 @@ public class Test1 {
         Manager.addCheckDocument(new CheckDoc(
                 "400",
                 "Rolex",
-                new DateNizek(12, 9, 1401),
+                new DateNizek(29, 9, 1401),
                 new TimeNizek(),
                 false,
                 Manager.costumerList.get(0)
@@ -107,9 +107,9 @@ public class Test1 {
         Manager.addCheckDocument(new CheckDoc(
                 "200",
                 "Hospital Bill",
-                new DateNizek(27, 8, 1401),
+                new DateNizek(1, 9, 1401),
                 new TimeNizek(),
-                true,
+                false,
                 Manager.costumerList.get(0)
         ));
         Manager.addCheckDocument(new CheckDoc(
@@ -117,10 +117,12 @@ public class Test1 {
                 "RangeRover",
                 new DateNizek(1, 9, 1401),
                 new TimeNizek(),
-                true,
+                false,
                 Manager.costumerList.get(0)
         ));
-        Converter.convertToNormalDocument(Manager.checkDocList.get(0));
-        System.out.println(Manager.normalDocList.get(Manager.normalDocList.size() - 1));
+        System.out.println(
+                Accounting.calculateTheResultOfNormalDoc() +
+                " Status: " + Accounting.getTheStatusOfNormalDoc());
+        System.out.println(Accounting.calculateWeight());
     }
 }

@@ -8,7 +8,7 @@ import Login.Costumer;
 import java.io.File;
 import java.util.List;
 
-public interface Reposible {
+public interface Storeable {
 
     // Read Implementations!
     String readFile(CheckDoc normalDoc, int id);

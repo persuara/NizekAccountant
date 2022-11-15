@@ -6,13 +6,11 @@ import ConverterHelper.Converter;
 import DocModels.CheckDoc;
 import DocModels.NormalDoc;
 import Login.Costumer;
-
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 
-public class UserRepository implements Reposible {
-
+public class UserRepository implements Storeable {
     static String costNormal;
     static String costCheck;
     static boolean isEmailUser;
@@ -21,7 +19,6 @@ public class UserRepository implements Reposible {
     static String tempCHECk;
     static String tempAdmin;
     static boolean isPasswordUser;
-    static String dateStatic;
 
 
 
@@ -54,7 +51,6 @@ public class UserRepository implements Reposible {
         }
         return tempCHECk;
     }
-
     //$$$$$$$$$$$$$$$$$---------$$$$$$$$$$ FINAL $$$$$$$$$$---------$$$$$$$$$$$$$$$$$
     @Override
     public String readFile(NormalDoc normalDoc, int id) {
@@ -114,13 +110,6 @@ public class UserRepository implements Reposible {
         }
         return "Not Found";
     }
-//    public List<NormalDoc> readWholeNormalDocument(List<NormalDoc> normalDocList) {
-//        List<NormalDoc> foundList = new ArrayList<>();
-//        for (NormalDoc normalDoc: normalDocList) {
-//
-//        }
-//        return foundList;
-//    }
     public List<NormalDoc> readBasedOnDay(List<NormalDoc> normalDocList, int day, int month, int year) {
         List<NormalDoc> filteredList = new ArrayList<>();
         for (NormalDoc object: normalDocList) {
@@ -176,7 +165,6 @@ public class UserRepository implements Reposible {
         return filteredList;
     }
 
-
     @Override
     public String readFile(Costumer costumer, String inputNationalID) {
         boolean isFound = false;
@@ -208,7 +196,6 @@ public class UserRepository implements Reposible {
         }
         return tempUser;
     }
-
     @Override
     public String readAdmin(Admin admin) {
         String name;
@@ -228,9 +215,7 @@ public class UserRepository implements Reposible {
         }
         return tempAdmin;
     }
-
     // *************** WRITE METHODS
-
     @Override
     public void writerToFile(Costumer costumer) {
         try {
@@ -251,7 +236,6 @@ public class UserRepository implements Reposible {
             e.printStackTrace();
         }
     }
-
     @Override
     public void writeToFile(NormalDoc normalDoc) {
         try {
@@ -273,7 +257,6 @@ public class UserRepository implements Reposible {
             e.printStackTrace();
         }
     }
-
     public void writeIFCreditorToFile(NormalDoc normalDoc) {
         try {
             if (normalDoc.isCreditor()) {
@@ -315,7 +298,6 @@ public class UserRepository implements Reposible {
             e.printStackTrace();
         }
     }
-
     @Override
     public void writeToFile(CheckDoc checkDoc) {
         try {
@@ -335,7 +317,6 @@ public class UserRepository implements Reposible {
             e.printStackTrace();
         }
     }
-
     public void writeIFCashedToFile(CheckDoc checkDoc) {
         try {
             if (checkDoc.isCashed()) {
@@ -369,7 +350,6 @@ public class UserRepository implements Reposible {
             e.printStackTrace();
         }
     }
-
     ///********** WRITE ADMIN
     @Override
     public void writeToFile(Admin admin) {
@@ -388,9 +368,7 @@ public class UserRepository implements Reposible {
         }
 
     }
-
     // &&&&&&&&&&&&& READ ALL Method &&&&&&&&&&&&&&&
-
     @Override
     public List<String> readWholeFile(File file) {
         List<String> arraylist = new ArrayList<>();
@@ -414,7 +392,6 @@ public class UserRepository implements Reposible {
     }
 
     /////////   READ COST FROM BOTH NORMAL DOC AND CHECK DOC!!!!!
-
     public String readCostFromFile(NormalDoc normalDoc, int id) {
         String cost;
         try {
@@ -439,7 +416,6 @@ public class UserRepository implements Reposible {
         }
         return costNormal;
     }
-
     public String readCostFromFile(CheckDoc checkDoc, int id) {
         String cost;
         try {
@@ -465,7 +441,6 @@ public class UserRepository implements Reposible {
     }
 
     //**********************  READ EMAIL AND PASSWORD CREDENTIONAl IT WITH USER INPUT **********************
-
     public boolean readValidateAdmin(Admin admin, String inputEmail, String inputPassword) {
         boolean isFound = false;
         try {
@@ -492,8 +467,6 @@ public class UserRepository implements Reposible {
         }
         return isEmailUser && isPasswordUser;
     }
-
-
     public void removeIdFromDataBase(NormalDoc normalDoc, int deleteLine) { //changed delete line to delete id!
         String tempFileAddress = "temp.csv";
         File oldFile = new File(normalDoc.getFilePath());
@@ -526,7 +499,6 @@ public class UserRepository implements Reposible {
             System.out.println("Couldn't write a new file!" + normalDoc.getFilePath());
         }
     }
-
     public String[] readColumnWholeFile(int column, File file) {
         String[] data;
         String currentLine;
@@ -543,7 +515,6 @@ public class UserRepository implements Reposible {
         }
         return listColumn.toArray(new String[0]);
     }
-
     // Method to Read Date from CHECKDOC
     public List<String> readDateFromCheck(List<CheckDoc> checkDocList) {
 
@@ -555,7 +526,6 @@ public class UserRepository implements Reposible {
         }
         return arrayDate;
     }
-
     public List<Double> readCostFromCheck(List<CheckDoc> checkDocList) {
 
         List<Double> arrayCost = new ArrayList<>();
@@ -566,6 +536,4 @@ public class UserRepository implements Reposible {
         }
         return arrayCost;
     }
-
-//    public List<String> readFiltered(List<>)
 }
