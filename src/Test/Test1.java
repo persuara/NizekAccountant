@@ -14,19 +14,8 @@ import UserRepository.UserRepository;
 import java.io.File;
 
 public class Test1 {
-    static NormalDoc normalDoc;
-    static CheckDoc checkDoc;
-    static Costumer costumer;
-
-    public static void deleteFile(File file) {
-        file.delete();
-    }
-
     public static void main(String[] args) {
-
-
         UserRepository userRepository = new UserRepository();
-
         Manager.addCostumer(new Costumer(
                 "Amir",
                 "123",
