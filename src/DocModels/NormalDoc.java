@@ -4,7 +4,7 @@ import Date.DateNizek;
 import Date.TimeNizek;
 import Login.Costumer;
 
-public class NormalDoc implements Documentable {
+public class NormalDoc {
     private Costumer costumer;
     private String cost;
     private String description;
