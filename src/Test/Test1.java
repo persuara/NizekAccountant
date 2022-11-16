@@ -12,6 +12,9 @@ import ModelManager.Manager;
 import UserRepository.UserRepository;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Test1 {
     public static void main(String[] args) {
@@ -34,7 +37,7 @@ public class Test1 {
         ));
 //
         Manager.addNormalDocument(new NormalDoc(
-                "51000",
+                "100",
                 "pay sth",
                 true,
                 new DateNizek(31, 6, 1402),
@@ -42,7 +45,7 @@ public class Test1 {
                 Manager.costumerList.get(1)
         ));
         Manager.addNormalDocument(new NormalDoc(
-                "5000",
+                "100",
                 "pay debt",
                 true,
                 new DateNizek(12,9,1402),
@@ -50,7 +53,7 @@ public class Test1 {
                 Manager.costumerList.get(1)
         ));
         Manager.addNormalDocument(new NormalDoc(
-                "5000",
+                "100",
                 "pay list",
                 false,
                 new DateNizek(5,9,1402),
@@ -58,7 +61,7 @@ public class Test1 {
                 Manager.costumerList.get(1)
         ));
         Manager.addNormalDocument(new NormalDoc(
-                "5000",
+                "100",
                 "pay sth",
                 false,
                 new DateNizek(1,3,1402),
@@ -109,9 +112,21 @@ public class Test1 {
                 false,
                 Manager.costumerList.get(0)
         ));
-        System.out.println(
-                Accounting.calculateTheResultOfNormalDoc() +
-                " Status: " + Accounting.getTheStatusOfNormalDoc());
-        System.out.println(Accounting.calculateWeight());
+//        System.out.println(" بستانکار "+Accounting.calculateMoneyFromModelNormalCreditor(Manager.normalDocList));
+//        System.out.println(" بدهکار "+Accounting.calculateMoneyFromModelNormalNotCreditor(Manager.normalDocList));
+//        System.out.println(Accounting.calculateTheResultOfNormalDoc());
+//       String[] hi =  userRepository.readColumnWholeFile(0,new File(Manager.costumerList.get(0).getFilePath()));
+//        System.out.println(Arrays.toString(hi));
+
+        //Method this GOH
+        List<String> list;
+        List<String> listNames =  new ArrayList<>();
+        list = userRepository.readWholeFile(new File(Manager.costumerList.get(0).getFilePath()));
+       for (String match: list) {
+           String[] array = match.split(", ");
+           listNames.add(array[0]);
+       }
+        System.out.println(listNames);
     }
+
 }
