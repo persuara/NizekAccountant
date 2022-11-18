@@ -17,7 +17,6 @@ public class TimeNizek {
         this.hour = zonedDateTime.getHour();
     }
 
-
     public int getMinute() {
         return minute;
     }

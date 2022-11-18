@@ -16,9 +16,10 @@ public class Accounting {
 
     public static double calculateMoneyFromFile(File file) {
         double result = 0;
-        String[] cost = userRepository.readColumnWholeFile(1, file);
-        for (int i = 0; i < cost.length; i++) {
-            result += Converter.convertToDouble(cost[i]);
+        List<String> cost;
+        cost = userRepository.readColumnWholeFile(1, file);
+        for (int i = 0; i < cost.size(); i++) {
+            result += Converter.convertToDouble(cost.get(i));
         }
         return result;
     }

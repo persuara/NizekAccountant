@@ -499,7 +499,7 @@ public class UserRepository implements Storeable {
             System.out.println("Couldn't write a new file!" + normalDoc.getFilePath());
         }
     }
-    public String[] readColumnWholeFile(int column, File file) {
+    public List<String> readColumnWholeFile(int column, File file) {
         String[] data;
         String currentLine;
         List<String> listColumn = new ArrayList<>();
@@ -513,7 +513,7 @@ public class UserRepository implements Storeable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return listColumn.toArray(new String[0]);
+        return listColumn;
     }
     // Method to Read Date from CHECKDOC
     public List<String> readDateFromCheck(List<CheckDoc> checkDocList) {
