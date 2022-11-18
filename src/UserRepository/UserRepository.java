@@ -6,6 +6,11 @@ import ConverterHelper.Converter;
 import DocModels.CheckDoc;
 import DocModels.NormalDoc;
 import Login.Costumer;
+import Login.GroupType;
+import ModelManager.Manager;
+import Date.DateNizek;
+import Date.TimeNizek;
+
 import java.util.*;
 import java.io.*;
 
@@ -317,6 +322,71 @@ public class UserRepository implements Storeable {
             e.printStackTrace();
         }
     }
+    public void writeToFileCostumer(List<Costumer> costumerList) {
+
+            try {
+                FileWriter fileWriter = new FileWriter("costumerFile.csv");
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                PrintWriter printWriter = new PrintWriter(bufferedWriter);
+                for (Costumer object: costumerList) {
+                printWriter.printf("%s, %s, %s, %s, %s, %s\n",
+                        object.getName(),
+                        object.getNationalID(),
+                        object.getGroupType(),
+                        object.getAddress(),
+                        object.getPhone(),
+                        object.getEmail());
+            }
+                printWriter.flush();
+                printWriter.close();
+        } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+    }
+    public void writeToFileCheckDoc(List<CheckDoc> checkDocList) {
+        try {
+            FileWriter fileWriter = new FileWriter("checkFile.csv");
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            PrintWriter printWriter = new PrintWriter(bufferedWriter);
+            for (CheckDoc object: checkDocList) {
+                printWriter.printf("%s, %s, %s, %s, %s, %s, %d\n",
+                        object.getUser().getName(),
+                        object.getCost(),
+                        object.getDescription(),
+                        object.convertCashed(object.isCashed()),
+                        ConverterTime.convertToGregorian(object.getDate()),
+                        object.getTime(),
+                        object.getUserID());
+            }
+            printWriter.flush();
+            printWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void writeToFileNormalDoc(List<NormalDoc> normalDocList) {
+        try {
+            FileWriter fileWriter = new FileWriter("normalFile.csv");
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            PrintWriter printWriter = new PrintWriter(bufferedWriter);
+            for (NormalDoc object: normalDocList) {
+                printWriter.printf("%s, %s, %s, %s, %s, %s, %d\n",
+                        object.getUser().getName(),
+                        object.getCost(),
+                        object.getDescription(),
+                        object.convertCreditor(object.isCreditor()),
+                        ConverterTime.convertToGregorian(object.getDate()),
+                        object.getTime(),
+                        object.getUserID());
+            }
+            printWriter.flush();
+            printWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void writeIFCashedToFile(CheckDoc checkDoc) {
         try {
             if (checkDoc.isCashed()) {
@@ -390,6 +460,51 @@ public class UserRepository implements Storeable {
 
         return arraylist;
     }
+    public void readAndAddCostumer(File file) {
+        List<String> gottenFile = readWholeFile(file);
+        for (String model: gottenFile) {
+            String[] temp = model.split(", ");
+            Manager.addCostumer(new Costumer(
+                    temp[0].substring(1),
+                    temp[1].trim(),
+                    new GroupType(temp[2].trim()),
+                    temp[3].trim(),
+                    temp[4].trim(),
+                    temp[5].trim()
+                    ));
+        }
+    }
+    public void readAndAddCheckDoc(File file) {   // requires Edit in Date!
+        List<String> gottenFile = readWholeFile(file);
+        for (String model: gottenFile) {
+            String[] temp = model.split(", ");
+            String[] date = temp[4].trim().split("-");
+            String[] time = temp[5].trim().split(":");
+            Manager.addCheckDocument(new CheckDoc(
+                    temp[1],
+                    temp[2],
+                    new DateNizek(Integer.parseInt(date[2]), Integer.parseInt(date[1]), Integer.parseInt(date[0])),
+                    new TimeNizek(Integer.parseInt(time[0]), Integer.parseInt(time[1])),
+                    Converter.setBoolean(temp[3]),
+                    Manager.costumerList.get(Integer.parseInt(temp[6].trim().substring(0,1)))));
+        }
+    }
+//    public void readAndAddCheck(File file) {
+//        List<String> gottenFile = readWholeFile(file);
+//        for (String model: gottenFile) {
+//            String[] temp = model.split(", ");
+//            String[] date = temp[3].trim().split("-");
+//            String[] time = temp[4].trim().split(":");
+//            Manager.addCheckDocument(new CheckDoc(
+//                    temp[1], //cost
+//                    temp[2], //description
+//                    new DateNizek(Integer.parseInt(date[2]), Integer.parseInt(date[1]), Integer.parseInt(date[0])),
+//                    new TimeNizek().setTime(Integer.parseInt(time[0]), Integer.parseInt(time[1])),
+//                    Converter.setBoolean(temp[5]),
+//                    Manager.costumerList.get(Integer.parseInt(temp[0]))
+//                    ));
+//        }
+//    }
 
     /////////   READ COST FROM BOTH NORMAL DOC AND CHECK DOC!!!!!
     public String readCostFromFile(NormalDoc normalDoc, int id) {
@@ -536,4 +651,5 @@ public class UserRepository implements Storeable {
         }
         return arrayCost;
     }
+
 }

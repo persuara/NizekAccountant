@@ -16,19 +16,17 @@ public class Manager {
 
     public static void addNormalDocument(NormalDoc normalDoc) {
         normalDocList.add(normalDoc);
-        userRepository.writeToFile(normalDoc);
-        userRepository.writeIFCreditorToFile(normalDoc);
+        userRepository.writeToFileNormalDoc(Manager.normalDocList);
     }
 
     public static void addCheckDocument(CheckDoc checkDoc) {
         checkDocList.add(checkDoc);
-        userRepository.writeToFile(checkDoc);
-        userRepository.writeIFCashedToFile(checkDoc);
+        userRepository.writeToFileCheckDoc(Manager.checkDocList);
     }
 
     public static void addCostumer(Costumer costumer) {
         costumerList.add(costumer);
-        userRepository.writerToFile(costumer);
+        userRepository.writeToFileCostumer(Manager.costumerList);
     }
 
     public static void removeFromList(NormalDoc normalDoc) {

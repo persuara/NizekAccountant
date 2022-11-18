@@ -16,6 +16,10 @@ public class TimeNizek {
         this.minute = zonedDateTime.getMinute();
         this.hour = zonedDateTime.getHour();
     }
+    public TimeNizek(int hour, int minute) {
+        this.minute = minute;
+        this.hour = hour;
+    }
 
     public int getMinute() {
         return minute;
@@ -31,6 +35,9 @@ public class TimeNizek {
 
     public void setHour(int hour) {
         this.hour = hour;
+    }
+    public TimeNizek setTime(int hour, int minute) {
+        return new TimeNizek(hour, minute);
     }
 
 
