@@ -87,19 +87,14 @@ public class UserRepository implements Storeable {
         }
         return tempNORMAL;
     }
-    public String readCostumerBasedOnNationalID(List<Costumer> costumerList, String inputNationalID) {
-        for (Costumer costumer: costumerList) {
-            if (inputNationalID.equals(costumer.getNationalID())) {
-                return String.format("%s, %s, %s, %s, %s, %s",
-                        costumer.getName(),
-                        costumer.getNationalID(),
-                        costumer.getGroupType(),
-                        costumer.getEmail(),
-                        costumer.getAddress(),
-                        costumer.getPhone());
+    public List<CheckDoc> findCheckBasedOnName(String name) {
+        List<CheckDoc> filteredList = new ArrayList<>();
+        for (CheckDoc checkDoc: Manager.checkDocList) {
+            if (name.equals(checkDoc.getUser().getName())) {
+                filteredList.add(checkDoc);
             }
         }
-        return "Not Found";
+        return filteredList;
     }
     public String readCostumerBasedOnName(List<Costumer> costumerList, String name) {
         for (Costumer costumer: costumerList) {

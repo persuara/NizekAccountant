@@ -104,7 +104,7 @@ public class Test1 {
                 new DateNizek(1, 9, 1401),
                 new TimeNizek(),
                 false,
-                Manager.costumerList.get(0)
+                Manager.costumerList.get(1)
         ));
         Manager.addCheckDocument(new CheckDoc(
                 "500",
@@ -112,11 +112,12 @@ public class Test1 {
                 new DateNizek(1, 9, 1401),
                 new TimeNizek(),
                 false,
-                Manager.costumerList.get(0)
+                Manager.costumerList.get(1)
         ));
 
 //        userRepository.readAndAddNormalDoc(new File("normalFile.csv"));
-        System.out.println(userRepository.readFilterBasedOnCostCheck(200, 500));
-        System.out.println(userRepository.readFilterBasedOnCostNormal(200,900));
+//        System.out.println(userRepository.readFilterBasedOnCostCheck(200, 500));
+//        System.out.println(userRepository.readFilterBasedOnCostNormal(200,900));
+        System.out.println(userRepository.findCheckBasedOnName("Baran"));
     }
 }
