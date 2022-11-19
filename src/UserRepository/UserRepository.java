@@ -481,30 +481,29 @@ public class UserRepository implements Storeable {
             String[] date = temp[4].trim().split("-");
             String[] time = temp[5].trim().split(":");
             Manager.addCheckDocument(new CheckDoc(
-                    temp[1],
-                    temp[2],
-                    new DateNizek(Integer.parseInt(date[2]), Integer.parseInt(date[1]), Integer.parseInt(date[0])),
+                    temp[1].trim(),
+                    temp[2].trim(),
+                    ConverterTime.convertToPersianNeeded(date[2], date[1], date[0]),
                     new TimeNizek(Integer.parseInt(time[0]), Integer.parseInt(time[1])),
-                    Converter.setBoolean(temp[3]),
+                    Converter.setBooleanCashed(temp[3]),
                     Manager.costumerList.get(Integer.parseInt(temp[6].trim().substring(0,1)))));
         }
     }
-//    public void readAndAddCheck(File file) {
-//        List<String> gottenFile = readWholeFile(file);
-//        for (String model: gottenFile) {
-//            String[] temp = model.split(", ");
-//            String[] date = temp[3].trim().split("-");
-//            String[] time = temp[4].trim().split(":");
-//            Manager.addCheckDocument(new CheckDoc(
-//                    temp[1], //cost
-//                    temp[2], //description
-//                    new DateNizek(Integer.parseInt(date[2]), Integer.parseInt(date[1]), Integer.parseInt(date[0])),
-//                    new TimeNizek().setTime(Integer.parseInt(time[0]), Integer.parseInt(time[1])),
-//                    Converter.setBoolean(temp[5]),
-//                    Manager.costumerList.get(Integer.parseInt(temp[0]))
-//                    ));
-//        }
-//    }
+    public void readAndAddNormalDoc(File file) {
+        List<String> gottenFile = readWholeFile(file);
+        for (String model : gottenFile) {
+            String[] temp = model.split(", ");
+            String[] date = temp[4].trim().split("-");
+            String[] time = temp[5].trim().split(":");
+            Manager.addNormalDocument(new NormalDoc(
+                    temp[1].trim(),
+                    temp[2].trim(),
+                    Converter.setBooleanCreditor(temp[3]),
+                    ConverterTime.convertToPersianNeeded(date[2], date[1], date[0]),
+                    new TimeNizek(Integer.parseInt(time[0]), Integer.parseInt(time[1])),
+                    Manager.costumerList.get(Integer.parseInt(temp[6].trim().substring(0, 1)))));
+        }
+    }
 
     /////////   READ COST FROM BOTH NORMAL DOC AND CHECK DOC!!!!!
     public String readCostFromFile(NormalDoc normalDoc, int id) {

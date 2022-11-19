@@ -40,7 +40,7 @@ public class Test1 {
 ////
 //        Manager.addNormalDocument(new NormalDoc(
 //                "100",
-//                "pay sth",
+//                "pay him",
 //                true,
 //                new DateNizek(31, 6, 1402),
 //                new TimeNizek(),
@@ -48,7 +48,7 @@ public class Test1 {
 //        ));
 //        Manager.addNormalDocument(new NormalDoc(
 //                "100",
-//                "pay debt",
+//                "pay her",
 //                true,
 //                new DateNizek(12, 9, 1402),
 //                new TimeNizek(),
@@ -115,9 +115,10 @@ public class Test1 {
 //                Manager.costumerList.get(0)
 //        ));
 
-        userRepository.readAndAddCheckDoc(new File("checkFile.csv"));
-        System.out.println(Manager.checkDocList.size());
-        System.out.println(Manager.checkDocList.get(0));
+        userRepository.readAndAddNormalDoc(new File("normalFile.csv"));
+        System.out.println(Manager.normalDocList.size());
+
+        System.out.println(Manager.normalDocList.get(0));
 
     }
 }

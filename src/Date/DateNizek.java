@@ -1,13 +1,21 @@
 package Date;
 
+import com.github.eloyzone.jalalicalendar.MonthPersian;
+
 public class DateNizek {
     private int day;
     private int month;
+    private MonthPersian monthPersian;
     private int year;
 
     public DateNizek(int day, int month, int year) {
         this.day = day;
         this.month = month;
+        this.year = year;
+    }
+    public DateNizek(int day, MonthPersian month, int year) {
+        this.day = day;
+        this.monthPersian = month;
         this.year = year;
     }
 

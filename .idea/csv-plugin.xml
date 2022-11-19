@@ -31,21 +31,7 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/normalDoc.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="/notCashedCheck.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="/notCreditor.csv">
+        <entry key="/normalFile.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

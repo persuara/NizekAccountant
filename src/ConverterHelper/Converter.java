@@ -20,8 +20,15 @@ public class Converter {
         ));
         Manager.removeFromList(checkDoc);
     }
-    public static boolean setBoolean(String text) {
+    public static boolean setBooleanCashed(String text) {
         if (text.equals("وصول شده")) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean setBooleanCreditor(String text) {
+        if (text.equals("بستانکار")) {
             return true;
         }
         return false;

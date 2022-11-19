@@ -27,6 +27,14 @@ public class ConverterTime {
                 Integer.parseInt(day));
         return jalaliDate2.toString();
     }
+    public static DateNizek convertToPersianNeeded(String day, String month, String year) {
+        DateConverter dateConverter = new DateConverter();
+        JalaliDate jalaliDate2 = dateConverter.gregorianToJalali(
+                Integer.parseInt(year),
+                Integer.parseInt(month),
+                Integer.parseInt(day));
+        return new DateNizek(jalaliDate2.getDay(), jalaliDate2.getMonthPersian(), jalaliDate2.getYear());
+    }
     public static double findDifferencesInDays(String inputDueDate) {
         double differenceInTime = 0;
         double differenceInDays = 0;
