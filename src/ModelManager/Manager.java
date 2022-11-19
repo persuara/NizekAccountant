@@ -1,5 +1,6 @@
 package ModelManager;
 
+import AdminModel.Admin;
 import DocModels.CheckDoc;
 import DocModels.NormalDoc;
 import Login.Costumer;
@@ -12,6 +13,7 @@ public class Manager {
     public static List<NormalDoc> normalDocList = new ArrayList<>();
     public static List<CheckDoc> checkDocList = new ArrayList<>();
     public static List<Costumer> costumerList = new ArrayList<>();
+    public static List<Admin> adminList = new ArrayList<>();
     public static UserRepository userRepository = new UserRepository();
 
     public static void addNormalDocument(NormalDoc normalDoc) {
@@ -27,6 +29,10 @@ public class Manager {
     public static void addCostumer(Costumer costumer) {
         costumerList.add(costumer);
         userRepository.writeToFileCostumer(Manager.costumerList);
+    }
+    public static void addAdmin(Admin admin) {
+        adminList.add(admin);
+        userRepository.writeToFileAdmin();
     }
 
     public static void removeFromList(NormalDoc normalDoc) {

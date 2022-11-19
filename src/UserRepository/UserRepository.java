@@ -8,7 +8,6 @@ import DocModels.NormalDoc;
 import Login.Costumer;
 import Login.GroupType;
 import ModelManager.Manager;
-import Date.DateNizek;
 import Date.TimeNizek;
 
 import java.util.*;
@@ -16,14 +15,9 @@ import java.io.*;
 
 
 public class UserRepository implements Storeable {
-    static String costNormal;
-    static String costCheck;
-    static boolean isEmailUser;
-    static String tempUser;
     static String tempNORMAL;
     static String tempCHECk;
     static String tempAdmin;
-    static boolean isPasswordUser;
 
 
 
@@ -96,8 +90,9 @@ public class UserRepository implements Storeable {
         }
         return filteredList;
     }
-    public String readCostumerBasedOnName(List<Costumer> costumerList, String name) {
-        for (Costumer costumer: costumerList) {
+
+    public String readCostumerBasedOnName(String name) {
+        for (Costumer costumer: Manager.costumerList) {
             if (name.equals(costumer.getName())) {
                 return String.format("%s, %s, %s, %s, %s, %s",
                         costumer.getName(),
@@ -110,27 +105,27 @@ public class UserRepository implements Storeable {
         }
         return "Not Found";
     }
-    public List<NormalDoc> readBasedOnDay(List<NormalDoc> normalDocList, int day, int month, int year) {
+    public List<NormalDoc> readBasedOnDay(int day, int month, int year) {
         List<NormalDoc> filteredList = new ArrayList<>();
-        for (NormalDoc object: normalDocList) {
+        for (NormalDoc object: Manager.normalDocList) {
             if (day == object.getDate().getDay() && month == object.getDate().getMonth() && year == object.getDate().getYear()) {
                 filteredList.add(object);
             }
         }
         return filteredList;
     }
-    public List<NormalDoc> readBasedOnMonth(List<NormalDoc> normalDocList,  int month, int year) {
+    public List<NormalDoc> readBasedOnMonth(int month, int year) {
         List<NormalDoc> filteredList = new ArrayList<>();
-        for (NormalDoc object: normalDocList) {
+        for (NormalDoc object: Manager.normalDocList) {
             if (month == object.getDate().getMonth() && year == object.getDate().getYear()) {
                 filteredList.add(object);
             }
         }
         return filteredList;
     }
-    public List<NormalDoc> readBasedOnYear(List<NormalDoc> normalDocList,int year) {
+    public List<NormalDoc> readBasedOnYear(int year) {
         List<NormalDoc> filteredList = new ArrayList<>();
-        for (NormalDoc object: normalDocList) {
+        for (NormalDoc object: Manager.normalDocList) {
             if (year == object.getDate().getYear()) {
                 filteredList.add(object);
             }
@@ -147,27 +142,27 @@ public class UserRepository implements Storeable {
         }
         return  filteredList;
     }
-    public List<CheckDoc> readBasedOnDayCheck(List<CheckDoc> checkDocList, int day, int month, int year) {
+    public List<CheckDoc> readBasedOnDayCheck(int day, int month, int year) {
         List<CheckDoc> filteredList = new ArrayList<>();
-        for (CheckDoc object: checkDocList) {
+        for (CheckDoc object: Manager.checkDocList) {
             if (day == object.getDate().getDay() && month == object.getDate().getMonth() && year == object.getDate().getYear()) {
                 filteredList.add(object);
             }
         }
         return filteredList;
     }
-    public List<CheckDoc> readBasedOnMonthCheck(List<CheckDoc> checkDocList,  int month, int year) {
+    public List<CheckDoc> readBasedOnMonthCheck(int month, int year) {
         List<CheckDoc> filteredList = new ArrayList<>();
-        for (CheckDoc object: checkDocList) {
+        for (CheckDoc object: Manager.checkDocList) {
             if (month == object.getDate().getMonth() && year == object.getDate().getYear()) {
                 filteredList.add(object);
             }
         }
         return filteredList;
     }
-    public List<CheckDoc> readBasedOnYearCheck(List<CheckDoc> checkDocList,int year) {
+    public List<CheckDoc> readBasedOnYearCheck(int year) {
         List<CheckDoc> filteredList = new ArrayList<>();
-        for (CheckDoc object: checkDocList) {
+        for (CheckDoc object: Manager.checkDocList) {
             if (year == object.getDate().getYear()) {
                 filteredList.add(object);
             }
@@ -186,34 +181,7 @@ public class UserRepository implements Storeable {
 
     @Override
     public String readFile(Costumer costumer, String inputNationalID) {
-        boolean isFound = false;
-        String name;
-        String nationalID;
-        String groupType;
-        String address;
-        String phone;
-        String email;
-        try {
-            Scanner x = new Scanner(new File(costumer.getFilePath()));
-            x.useDelimiter("[,\n]");
-            while (x.hasNext() && !isFound) {
-                name = x.next();
-                nationalID = x.next();
-                groupType = x.next();
-                address = x.next();
-                phone = x.next();
-                email = x.next();
-                if (inputNationalID.equals(costumer.getNationalID())) {
-                    isFound = true;
-                    tempUser = String.format("%s , %s, %s, %s, %s, %s", name, nationalID, groupType, address, phone, email);
-                } else {
-                    System.out.println("No Such file exist");
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return tempUser;
+        return "Unused!";
     }
     @Override
     public String readAdmin(Admin admin) {
@@ -236,108 +204,7 @@ public class UserRepository implements Storeable {
     }
     // *************** WRITE METHODS
     @Override
-    public void writerToFile(Costumer costumer) {
-        try {
-            FileWriter fileWriter = new FileWriter(costumer.getFilePath(), true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            PrintWriter printWriter = new PrintWriter(bufferedWriter);
-            printWriter.printf("%s , %s, %s, %s, %s, %s, %d\n",
-                    costumer.getName(),
-                    costumer.getNationalID(),
-                    costumer.getGroupType(),
-                    costumer.getAddress(),
-                    costumer.getPhone(),
-                    costumer.getEmail(),
-                    costumer.getID());
-            printWriter.flush();
-            printWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    @Override
-    public void writeToFile(NormalDoc normalDoc) {
-        try {
-            FileWriter fileWriter = new FileWriter(normalDoc.getFilePath(), true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            PrintWriter printWriter = new PrintWriter(bufferedWriter);
-            printWriter.printf("%s, %s, %s, %b, %s, %s, %d \n",
-                    normalDoc.getUser().getName(),
-                    normalDoc.getCost(),
-                    normalDoc.getDescription(),
-                    normalDoc.isCreditor(),
-                    ConverterTime.convertToGregorian(normalDoc.getDate()),
-                    normalDoc.getTime(),
-                    normalDoc.getUserID()
-            );
-            printWriter.flush();
-            printWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public void writeIFCreditorToFile(NormalDoc normalDoc) {
-        try {
-            if (normalDoc.isCreditor()) {
-                FileWriter fileWriter = new FileWriter(normalDoc.getIsCreditorFilePath(), true);
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                PrintWriter printWriter = new PrintWriter(bufferedWriter);
-                printWriter.printf("%s, %s, %s, %b, %s, %s, %d \n",
-                        normalDoc.getUser().getName(),
-                        normalDoc.getCost(),
-                        normalDoc.getDescription(),
-                        normalDoc.isCreditor(),
-                        ConverterTime.convertToGregorian(normalDoc.getDate()),
-                        normalDoc.getTime(),
-                        normalDoc.getUserID()
-                );
-                printWriter.flush();
-                printWriter.close();
-            } else {
-                try {
-                    FileWriter fileWriter = new FileWriter(normalDoc.getNotCreditorFilePath(), true);
-                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                    PrintWriter printWriter = new PrintWriter(bufferedWriter);
-                    printWriter.printf("%s, %s, %s, %b, %s, %s, %d \n",
-                            normalDoc.getUser().getName(),
-                            normalDoc.getCost(),
-                            normalDoc.getDescription(),
-                            normalDoc.isCreditor(),
-                            ConverterTime.convertToGregorian(normalDoc.getDate()),
-                            normalDoc.getTime(),
-                            normalDoc.getUserID()
-                    );
-                    printWriter.flush();
-                    printWriter.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    @Override
-    public void writeToFile(CheckDoc checkDoc) {
-        try {
-            FileWriter fileWriter = new FileWriter(checkDoc.getFilePath(), true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            PrintWriter printWriter = new PrintWriter(bufferedWriter);
-            printWriter.printf("%s, %s, %s, %s, %s, %d\n",
-                    checkDoc.getUser().getName(),
-                    checkDoc.getCost(),
-                    checkDoc.getDescription(),
-                    ConverterTime.convertToGregorian(checkDoc.getDate()),
-                    checkDoc.getTime(),
-                    checkDoc.getUserID());
-            printWriter.flush();
-            printWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     public void writeToFileCostumer(List<Costumer> costumerList) {
-
             try {
                 FileWriter fileWriter = new FileWriter("costumerFile.csv");
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -357,6 +224,7 @@ public class UserRepository implements Storeable {
                 throw new RuntimeException(e);
             }
     }
+    @Override
     public void writeToFileCheckDoc(List<CheckDoc> checkDocList) {
         try {
             FileWriter fileWriter = new FileWriter("checkFile.csv");
@@ -379,6 +247,7 @@ public class UserRepository implements Storeable {
             e.printStackTrace();
         }
     }
+    @Override
     public void writeToFileNormalDoc(List<NormalDoc> normalDocList) {
         try {
             FileWriter fileWriter = new FileWriter("normalFile.csv");
@@ -401,56 +270,24 @@ public class UserRepository implements Storeable {
             e.printStackTrace();
         }
     }
-    public void writeIFCashedToFile(CheckDoc checkDoc) {
-        try {
-            if (checkDoc.isCashed()) {
-                FileWriter fileWriter = new FileWriter(checkDoc.getCashedFilePath(), true);
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                PrintWriter printWriter = new PrintWriter(bufferedWriter);
-                printWriter.printf("%s, %s, %s, %s, %s, %d\n",
-                        checkDoc.getUser().getName(),
-                        checkDoc.getCost(),
-                        checkDoc.getDescription(),
-                        ConverterTime.convertToGregorian(checkDoc.getDate()),
-                        checkDoc.getTime(),
-                        checkDoc.getUserID());
-                printWriter.flush();
-                printWriter.close();
-            } else {
-                FileWriter fileWriter = new FileWriter(checkDoc.getNotCashedFilePath(), true);
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                PrintWriter printWriter = new PrintWriter(bufferedWriter);
-                printWriter.printf("%s, %s, %s, %s, %s, %d\n",
-                        checkDoc.getUser().getName(),
-                        checkDoc.getCost(),
-                        checkDoc.getDescription(),
-                        ConverterTime.convertToGregorian(checkDoc.getDate()),
-                        checkDoc.getTime(),
-                        checkDoc.getUserID());
-                printWriter.flush();
-                printWriter.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    ///********** WRITE ADMIN
+
     @Override
-    public void writeToFile(Admin admin) {
+    public void writeToFileAdmin() {
         try {
-            FileWriter fileWriter = new FileWriter(admin.getFilePath());
+            FileWriter fileWriter = new FileWriter("adminFile.csv");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             PrintWriter printWriter = new PrintWriter(bufferedWriter);
-            printWriter.printf("%s, %s, %s \n",
-                    admin.getName(),
-                    admin.getEmail(),
-                    admin.getPassword());
+            for (Admin object: Manager.adminList) {
+                printWriter.printf("%s, %s, %s \n",
+                        object.getName(),
+                        object.getEmail(),
+                        object.getPassword());
+            }
             printWriter.flush();
             printWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
     // &&&&&&&&&&&&& READ ALL Method &&&&&&&&&&&&&&&
     @Override
@@ -474,6 +311,7 @@ public class UserRepository implements Storeable {
 
         return arraylist;
     }
+    @Override
     public void readAndAddCostumer(File file) {
         List<String> gottenFile = readWholeFile(file);
         for (String model: gottenFile) {
@@ -488,6 +326,7 @@ public class UserRepository implements Storeable {
                     ));
         }
     }
+    @Override
     public void readAndAddCheckDoc(File file) {   // requires Edit in Date!
         List<String> gottenFile = readWholeFile(file);
         for (String model: gottenFile) {
@@ -503,6 +342,7 @@ public class UserRepository implements Storeable {
                     Manager.costumerList.get(Integer.parseInt(temp[6].trim().substring(0,1)))));
         }
     }
+    @Override
     public void readAndAddNormalDoc(File file) {
         List<String> gottenFile = readWholeFile(file);
         for (String model : gottenFile) {
@@ -518,82 +358,28 @@ public class UserRepository implements Storeable {
                     Manager.costumerList.get(Integer.parseInt(temp[6].trim().substring(0, 1)))));
         }
     }
-
-    /////////   READ COST FROM BOTH NORMAL DOC AND CHECK DOC!!!!!
-    public String readCostFromFile(NormalDoc normalDoc, int id) {
-        String cost;
-        try {
-            Scanner x = new Scanner(new File(normalDoc.getFilePath()));
-            x.useDelimiter("[,\n]");
-            while (x.hasNext()) {
-                x.next();
-                cost = x.next();
-                x.next();
-                x.next();
-                x.next();
-                x.next();
-                if (id == normalDoc.getUserID()) {
-                    costNormal = cost;
-                    break;
-                }
+    @Override
+    public void readAndAddAdmin(File file) {
+        if (file.exists()) {
+            List<String> gottenFile = readWholeFile(file);
+            for (String model: gottenFile) {
+                String[] temp = model.trim().split(", ");
+                Manager.addAdmin(new Admin(
+                        temp[0].trim().substring(1),
+                        temp[1].trim(),
+                        temp[2].trim().substring(0,5)
+                ));
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchElementException e) {
-            e.toString();
         }
-        return costNormal;
-    }
-    public String readCostFromFile(CheckDoc checkDoc, int id) {
-        String cost;
-        try {
-            Scanner x = new Scanner(new File(checkDoc.getFilePath()));
-            x.useDelimiter("[,\n]");
-            while (x.hasNext()) {
-                x.next();
-                cost = x.next();
-                x.next();
-                x.next();
-                x.next();
-                if (id == checkDoc.getUserID()) {
-                    costCheck = cost;
-                    break;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchElementException e) {
-            e.toString();
-        }
-        return costCheck;
     }
 
-    //**********************  READ EMAIL AND PASSWORD CREDENTIONAl IT WITH USER INPUT **********************
-    public boolean readValidateAdmin(Admin admin, String inputEmail, String inputPassword) {
-        boolean isFound = false;
-        try {
-            Scanner x = new Scanner(new File(admin.getFilePath()));
-            x.useDelimiter("[,\n]");
-            while (x.hasNext() && !isFound) {
-                x.next();
-                x.next();
-                x.next();
-                if (inputEmail.equals(admin.getEmail()) && inputPassword.equals(admin.getPassword())) {
-                    isFound = true;
-                    isEmailUser = true;
-                    isPasswordUser = true;
-                } else {
-                    isEmailUser = false;
-                    isPasswordUser = false;
-                }
+    public boolean validateAdmin(String inputEmail, String inputPassword) {
+        for (Admin admin: Manager.adminList) {
+            if (inputEmail.equals(admin.getEmail()) && inputPassword.equals(admin.getPassword())) {
+                return true;
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("Email Not found");
-        } catch (NoSuchElementException e) {
-            e.toString();
         }
-        return isEmailUser && isPasswordUser;
+        return false;
     }
     public void removeIdFromDataBase(NormalDoc normalDoc, int deleteLine) { //changed delete line to delete id!
         String tempFileAddress = "temp.csv";
@@ -645,7 +431,6 @@ public class UserRepository implements Storeable {
     }
     // Method to Read Date from CHECKDOC
     public List<String> readDateFromCheck(List<CheckDoc> checkDocList) {
-
         List<String> arrayDate = new ArrayList<>();
         for (CheckDoc checkDoc : checkDocList) {
             if (!(checkDoc.isCashed())) {

@@ -2,6 +2,7 @@ package Test;
 
 
 import AccountingCalculations.Accounting;
+import AdminModel.Admin;
 import Date.DateNizek;
 import Date.TimeNizek;
 import DocModels.CheckDoc;
@@ -11,6 +12,7 @@ import Login.GroupType;
 import ModelManager.Manager;
 import UserRepository.UserRepository;
 
+import javax.print.attribute.standard.PrinterMakeAndModel;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -114,10 +116,28 @@ public class Test1 {
                 false,
                 Manager.costumerList.get(1)
         ));
+//        Manager.addAdmin(new Admin(
+//                "persuara",
+//                "eram@gmail.com",
+//                "abcfg"
+//                ));
+//        Manager.addAdmin(new Admin(
+//                "baran",
+//                "baran@gmail.com",
+//                "abcde"
+        // ));
+//        Manager.addAdmin(new Admin(
+//                "amir",
+//                "julia@gmail.com",
+//                "ab123"
+//        ));
+        userRepository.readAndAddAdmin(new File("adminFile.csv"));
+        System.out.println(Manager.adminList.size());
+        System.out.println(userRepository.validateAdmin("julia@gmail.com", "ab123"));
+
 
 //        userRepository.readAndAddNormalDoc(new File("normalFile.csv"));
 //        System.out.println(userRepository.readFilterBasedOnCostCheck(200, 500));
 //        System.out.println(userRepository.readFilterBasedOnCostNormal(200,900));
-        System.out.println(userRepository.findCheckBasedOnName("Baran"));
     }
 }
