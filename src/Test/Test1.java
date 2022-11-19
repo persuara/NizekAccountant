@@ -54,22 +54,22 @@ public class Test1 {
 //                new TimeNizek(),
 //                Manager.costumerList.get(1)
 //        ));
-//        Manager.addNormalDocument(new NormalDoc(
-//                "100",
-//                "pay list",
-//                false,
-//                new DateNizek(5, 9, 1402),
-//                new TimeNizek(),
-//                Manager.costumerList.get(1)
-//        ));
-//        Manager.addNormalDocument(new NormalDoc(
-//                "100",
-//                "pay sth",
-//                false,
-//                new DateNizek(1, 3, 1402),
-//                new TimeNizek(),
-//                Manager.costumerList.get(0)
-//        ));
+        Manager.addNormalDocument(new NormalDoc(
+                "200",
+                "pay list",
+                false,
+                new DateNizek(5, 9, 1402),
+                new TimeNizek(),
+                Manager.costumerList.get(1)
+        ));
+        Manager.addNormalDocument(new NormalDoc(
+                "900",
+                "pay sth",
+                false,
+                new DateNizek(1, 3, 1402),
+                new TimeNizek(),
+                Manager.costumerList.get(0)
+        ));
 //
 //
 //        Manager.addCheckDocument(new CheckDoc(
@@ -98,27 +98,25 @@ public class Test1 {
 //                false,
 //                Manager.costumerList.get(0)
 //        ));
-//        Manager.addCheckDocument(new CheckDoc(
-//                "200",
-//                "Hospital Bill",
-//                new DateNizek(1, 9, 1401),
-//                new TimeNizek(),
-//                false,
-//                Manager.costumerList.get(0)
-//        ));
-//        Manager.addCheckDocument(new CheckDoc(
-//                "500",
-//                "RangeRover",
-//                new DateNizek(1, 9, 1401),
-//                new TimeNizek(),
-//                false,
-//                Manager.costumerList.get(0)
-//        ));
+        Manager.addCheckDocument(new CheckDoc(
+                "200",
+                "Hospital Bill",
+                new DateNizek(1, 9, 1401),
+                new TimeNizek(),
+                false,
+                Manager.costumerList.get(0)
+        ));
+        Manager.addCheckDocument(new CheckDoc(
+                "500",
+                "RangeRover",
+                new DateNizek(1, 9, 1401),
+                new TimeNizek(),
+                false,
+                Manager.costumerList.get(0)
+        ));
 
-        userRepository.readAndAddNormalDoc(new File("normalFile.csv"));
-        System.out.println(Manager.normalDocList.size());
-
-        System.out.println(Manager.normalDocList.get(0));
-
+//        userRepository.readAndAddNormalDoc(new File("normalFile.csv"));
+        System.out.println(userRepository.readFilterBasedOnCostCheck(200, 500));
+        System.out.println(userRepository.readFilterBasedOnCostNormal(200,900));
     }
 }

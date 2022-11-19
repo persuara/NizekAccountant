@@ -142,6 +142,16 @@ public class UserRepository implements Storeable {
         }
         return filteredList;
     }
+
+    public List<NormalDoc> readFilterBasedOnCostNormal(int beforeCost, int afterCost) {
+        List<NormalDoc> filteredList = new ArrayList<>();
+        for (NormalDoc object: Manager.normalDocList) {
+            if (Integer.parseInt(object.getCost()) >= beforeCost && Integer.parseInt(object.getCost()) <= afterCost) {
+                filteredList.add(object);
+            }
+        }
+        return  filteredList;
+    }
     public List<CheckDoc> readBasedOnDayCheck(List<CheckDoc> checkDocList, int day, int month, int year) {
         List<CheckDoc> filteredList = new ArrayList<>();
         for (CheckDoc object: checkDocList) {
@@ -168,6 +178,15 @@ public class UserRepository implements Storeable {
             }
         }
         return filteredList;
+    }
+    public List<CheckDoc> readFilterBasedOnCostCheck(int beforeCost, int afterCost) {
+        List<CheckDoc> filteredList = new ArrayList<>();
+        for (CheckDoc object: Manager.checkDocList) {
+            if (Integer.parseInt(object.getCost()) >= beforeCost && Integer.parseInt(object.getCost()) <= afterCost) {
+                filteredList.add(object);
+            }
+        }
+        return  filteredList;
     }
 
     @Override
